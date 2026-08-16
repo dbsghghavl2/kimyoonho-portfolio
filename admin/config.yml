@@ -1,0 +1,76 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "images/uploads"
+
+locale: "ko"
+
+collections:
+  - name: "site"
+    label: "포트폴리오 사이트"
+    files:
+      - file: "content/site-data.json"
+        label: "카테고리 & 작품"
+        name: "sitedata"
+        fields:
+          - label: "카테고리 목록"
+            name: "categories"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "ID (영문, 절대 중복/공백 금지)", name: "id", widget: "string" }
+              - { label: "카테고리명 (한글)", name: "title", widget: "string" }
+              - { label: "카테고리명 (영문)", name: "subtitle", widget: "string" }
+              - label: "작품 목록"
+                name: "works"
+                widget: "list"
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "작품명", name: "title", widget: "string" }
+                  - { label: "메타정보 (재료 · 크기 · 연도)", name: "meta", widget: "string", required: false }
+                  - { label: "작품 설명", name: "desc", widget: "text", required: false }
+                  - label: "이미지"
+                    name: "images"
+                    widget: "list"
+                    field: { label: "이미지", name: "image", widget: "image" }
+                  - label: "유튜브 영상 ID 목록"
+                    name: "youtube"
+                    widget: "list"
+                    required: false
+                    field: { label: "YouTube 영상 ID (URL 뒷부분, 예: 7KydUYZzJOE)", name: "id", widget: "string" }
+
+      - file: "content/text-data.json"
+        label: "TEXT (비평글)"
+        name: "textdata"
+        fields:
+          - label: "글 목록"
+            name: "articles"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "저자", name: "author", widget: "string" }
+              - { label: "본문", name: "body", widget: "text" }
+
+      - file: "content/cv-data.json"
+        label: "CV"
+        name: "cvdata"
+        fields:
+          - label: "이력 목록"
+            name: "entries"
+            widget: "list"
+            summary: "{{fields.year}} · {{fields.title}}"
+            fields:
+              - { label: "연도", name: "year", widget: "string" }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "장소", name: "place", widget: "string", required: false }
+              - { label: "도시", name: "city", widget: "string", required: false }
+
+      - file: "content/contact-data.json"
+        label: "CONTACT (연락처)"
+        name: "contactdata"
+        fields:
+          - { label: "이메일", name: "email", widget: "string", required: false }
+          - { label: "인스타그램 (@ 제외)", name: "instagram", widget: "string", required: false }

@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>김윤호 | Kim Yoonho</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gray-text:#888888;
+    --gray-light:#bbbbbb;
+    --black:#111111;
+    --bg:#ffffff;
+    --sidebar-w:240px;
+    --gap:28px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Roboto','Noto Sans KR',sans-serif;
+    color:var(--black);
+    background:var(--bg);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{text-decoration:none;color:inherit;}
+  img{max-width:100%;display:block;}
+
+  /* ---------- Sidebar ---------- */
+  #sidebar{
+    position:fixed;
+    top:0;left:0;bottom:0;
+    width:var(--sidebar-w);
+    padding:48px 0 24px 40px;
+    overflow-y:auto;
+    background:var(--bg);
+    z-index:20;
+  }
+  #sidebar::-webkit-scrollbar{width:0;}
+  .brand{
+    font-size:15px;
+    font-weight:500;
+    letter-spacing:0.02em;
+    margin-bottom:4px;
+  }
+  .brand-en{
+    font-size:11px;
+    color:var(--gray-light);
+    letter-spacing:0.06em;
+    margin-bottom:44px;
+    display:block;
+  }
+  nav.mainnav{display:flex;flex-direction:column;gap:2px;}
+  nav.mainnav a{
+    font-size:13px;
+    color:var(--gray-text);
+    padding:7px 0;
+    font-weight:400;
+    letter-spacing:0.01em;
+    transition:color .15s ease;
+  }
+  nav.mainnav a:hover{color:var(--black);}
+  nav.mainnav a.active{color:var(--black);font-weight:500;}
+
+  .category-block{margin-top:26px;}
+  .category-block .cat-title{
+    font-size:13px;
+    color:var(--gray-text);
+    padding:7px 0;
+    cursor:pointer;
+    transition:color .15s ease;
+  }
+  .category-block .cat-title:hover,
+  .category-block .cat-title.active{color:var(--black);font-weight:500;}
+  .category-block .subtitle-en{
+    font-size:10px;
+    color:var(--gray-light);
+    display:block;
+    margin-top:-4px;
+    margin-bottom:2px;
+    font-weight:300;
+  }
+
+  /* ---------- Hamburger (mobile) ---------- */
+  #hamburger{
+    display:none;
+    position:fixed;
+    top:18px;right:20px;
+    z-index:30;
+    width:36px;height:36px;
+    background:transparent;
+    border:none;
+    cursor:pointer;
+    padding:0;
+  }
+  #hamburger span{
+    display:block;
+    width:22px;height:1.5px;
+    background:var(--black);
+    margin:6px auto;
+    transition:.2s;
+  }
+  #hamburger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);}
+  #hamburger.open span:nth-child(2){opacity:0;}
+  #hamburger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);}
+
+  /* ---------- Main ---------- */
+  #main{
+    margin-left:var(--sidebar-w);
+    min-height:100vh;
+    padding:56px 56px 120px 56px;
+  }
+  .page{display:none;}
+  .page.active{display:block;}
+
+  /* Home */
+  #page-home .home-title{
+    font-size:26px;
+    font-weight:400;
+    letter-spacing:0.01em;
+    margin:0 0 6px 0;
+  }
+  #page-home .home-title-en{
+    font-size:13px;
+    color:var(--gray-text);
+    letter-spacing:0.08em;
+    margin:0 0 60px 0;
+    display:block;
+  }
+  .home-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:2px;
+    max-width:920px;
+  }
+  .home-grid .home-cat{
+    position:relative;
+    aspect-ratio:1/1;
+    overflow:hidden;
+    cursor:pointer;
+    background:#f2f2f2;
+  }
+  .home-grid .home-cat img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform .5s ease;
+  }
+  .home-grid .home-cat:hover img{transform:scale(1.05);}
+  .home-grid .home-cat .label{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:14px 16px;
+    background:linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,0));
+    color:#fff;
+    font-size:13px;
+    letter-spacing:0.02em;
+  }
+  .home-grid .home-cat .label .en{
+    display:block;
+    font-size:9px;
+    color:rgba(255,255,255,.75);
+    margin-top:2px;
+    letter-spacing:0.06em;
+  }
+
+  /* Category page header */
+  .cat-header{margin-bottom:56px;max-width:640px;}
+  .cat-header h1{
+    font-size:24px;
+    font-weight:400;
+    margin:0 0 4px 0;
+    letter-spacing:0.01em;
+  }
+  .cat-header .en{
+    font-size:12px;
+    color:var(--gray-text);
+    letter-spacing:0.08em;
+  }
+
+  /* Work block */
+  .work{
+    max-width:920px;
+    margin-bottom:88px;
+    padding-bottom:88px;
+  }
+  .work:last-child{
+    border-bottom:none;
+    margin-bottom:0;
+  }
+  .work-title{
+    font-size:17px;
+    font-weight:500;
+    margin:0 0 14px 0;
+  }
+  .work-caption{
+    margin-top:18px;
+  }
+  .work-meta{
+    font-size:12px;
+    color:var(--gray-text);
+    line-height:1.6;
+  }
+  .work-desc{
+    font-size:13px;
+    line-height:1.9;
+    color:var(--gray-text);
+    white-space:pre-line;
+    max-width:620px;
+    margin-top:10px;
+  }
+  .work-gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+    gap:6px;
+  }
+  .work-gallery img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+    cursor:zoom-in;
+    background:#f2f2f2;
+    transition:opacity .2s ease;
+  }
+  .work-gallery img:hover{opacity:0.85;}
+  .work-gallery.single{grid-template-columns:minmax(260px,560px);}
+  .work-gallery.single img{height:auto;max-height:640px;object-fit:contain;background:none;}
+
+  .video-wrap{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:16px;
+    margin-bottom:26px;
+  }
+  .video-wrap .yt{
+    position:relative;
+    padding-top:56.25%;
+    background:#111;
+  }
+  .video-wrap .yt iframe{
+    position:absolute;top:0;left:0;width:100%;height:100%;border:0;
+  }
+
+  /* Lightbox */
+  #lightbox{
+    display:none;
+    position:fixed;inset:0;
+    background:rgba(255,255,255,.97);
+    z-index:100;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+  }
+  #lightbox.open{display:flex;}
+  #lightbox img{
+    max-width:88vw;
+    max-height:78vh;
+    object-fit:contain;
+  }
+  #lightbox .lb-close{
+    position:absolute;top:24px;right:32px;
+    font-size:28px;
+    font-weight:300;
+    color:var(--gray-text);
+    cursor:pointer;
+    background:none;border:none;
+    z-index:20;
+  }
+  #lightbox .lb-close:hover{color:var(--black);}
+  #lightbox .lb-nav{
+    position:absolute;top:80px;bottom:60px;
+    width:15%;
+    display:flex;align-items:center;
+    background:transparent;border:none;
+    cursor:pointer;
+    font-size:26px;
+    color:var(--gray-light);
+    z-index:10;
+  }
+  #lightbox .lb-nav:hover{color:var(--black);}
+  #lightbox .lb-prev{left:0;justify-content:flex-start;padding-left:18px;}
+  #lightbox .lb-next{right:0;justify-content:flex-end;padding-right:18px;}
+  #lightbox .lb-count{
+    font-size:12px;color:var(--gray-text);
+    margin-top:14px;
+  }
+  #lightbox .lb-caption{
+    margin-top:6px;
+    text-align:center;
+    max-width:640px;
+    padding:0 24px;
+  }
+  #lightbox .lb-caption .lb-title{
+    font-size:14px;
+    font-weight:500;
+    color:var(--black);
+    margin-bottom:4px;
+  }
+  #lightbox .lb-caption .lb-meta{
+    font-size:12px;
+    color:var(--gray-text);
+  }
+
+  /* nav divider (whitespace only, no line — per design system) */
+  .nav-divider{ height:22px; }
+
+  /* empty state */
+  .empty-note{
+    font-size:13px;
+    color:var(--gray-light);
+    letter-spacing:0.02em;
+  }
+
+  /* CV */
+  .cv-list{ max-width:640px; }
+  .cv-row{
+    display:flex;
+    gap:24px;
+    padding:14px 0;
+  }
+  .cv-year{
+    flex:0 0 56px;
+    font-size:13px;
+    color:var(--gray-text);
+  }
+  .cv-info{ flex:1; }
+  .cv-title{ font-size:14px; margin-bottom:2px; }
+  .cv-place{ font-size:12px; color:var(--gray-text); }
+
+  /* TEXT (비평글) */
+  .text-article{
+    max-width:640px;
+    margin-bottom:64px;
+  }
+  .text-title{ font-size:18px; font-weight:500; margin:0 0 6px 0; }
+  .text-author{ font-size:12px; color:var(--gray-text); margin-bottom:20px; }
+  .text-body{ font-size:14px; line-height:2; white-space:pre-line; color:#333; }
+
+  /* CONTACT */
+  .contact-list{ max-width:480px; }
+  .contact-row{
+    display:flex;
+    gap:20px;
+    padding:10px 0;
+    font-size:14px;
+  }
+  .contact-row a{ color:var(--black); }
+  .contact-row a:hover{ color:var(--gray-text); }
+  .contact-label{
+    flex:0 0 90px;
+    color:var(--gray-text);
+    font-size:12px;
+    letter-spacing:0.06em;
+    padding-top:2px;
+  }
+
+  /* Footer */
+  .site-footer{
+    margin-top:100px;
+    font-size:11px;
+    color:var(--gray-light);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:860px){
+    :root{--sidebar-w:220px;}
+    #main{padding:56px 28px 100px 28px;}
+    .home-grid{grid-template-columns:1fr 1fr;}
+  }
+
+  @media (max-width:680px){
+    #hamburger{display:block;}
+    #sidebar{
+      transform:translateX(-100%);
+      transition:transform .25s ease;
+      width:76vw;
+      max-width:300px;
+      box-shadow:0 0 0 rgba(0,0,0,0);
+      padding-top:80px;
+    }
+    #sidebar.open{
+      transform:translateX(0);
+      box-shadow:2px 0 24px rgba(0,0,0,.08);
+    }
+    #main{margin-left:0;padding:90px 20px 80px 20px;}
+    .home-grid{grid-template-columns:1fr 1fr;}
+    .work-gallery{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));}
+    .work-gallery img{height:170px;}
+  }
+</style>
+</head>
+<body>
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+
+<button id="hamburger" aria-label="메뉴">
+  <span></span><span></span><span></span>
+</button>
+
+<aside id="sidebar">
+  <a href="#" data-page="home" class="brand-link">
+    <span class="brand">김윤호</span>
+    <span class="brand-en">KIM YOONHO</span>
+  </a>
+  <nav class="mainnav" id="mainnav"></nav>
+</aside>
+
+<main id="main">
+  <section class="page active" id="page-home">
+    <h1 class="home-title">김윤호</h1>
+    <span class="home-title-en">KIM YOONHO — PORTFOLIO</span>
+    <div class="home-grid" id="homeGrid"></div>
+  </section>
+
+  <!-- category pages injected by JS -->
+  <div id="categoryPages"></div>
+</main>
+
+<div id="lightbox">
+  <button class="lb-close" aria-label="닫기">&times;</button>
+  <button class="lb-nav lb-prev" aria-label="이전">&#8249;</button>
+  <img id="lb-img" src="" alt="">
+  <button class="lb-nav lb-next" aria-label="다음">&#8250;</button>
+  <div class="lb-caption">
+    <div class="lb-title" id="lb-title"></div>
+    <div class="lb-meta" id="lb-meta"></div>
+  </div>
+  <div class="lb-count" id="lb-count"></div>
+</div>
+
+<script>
+let SITE_DATA = [];
+let CV_DATA = [];
+let TEXT_DATA = [];
+let CONTACT_DATA = { email: "", instagram: "" };
+
+async function loadJSON(path, fallback){
+  try {
+    const res = await fetch(path, { cache: "no-store" });
+    if (!res.ok) throw new Error(res.status);
+    return await res.json();
+  } catch (e) {
+    console.error("failed to load", path, e);
+    return fallback;
+  }
+}
+
+window.SITE_DATA_READY = (async function(){
+  const [siteRes, cvRes, textRes, contactRes] = await Promise.all([
+    loadJSON("content/site-data.json", { categories: [] }),
+    loadJSON("content/cv-data.json", { entries: [] }),
+    loadJSON("content/text-data.json", { articles: [] }),
+    loadJSON("content/contact-data.json", { email: "", instagram: "" })
+  ]);
+  SITE_DATA = siteRes.categories || [];
+  CV_DATA = cvRes.entries || [];
+  TEXT_DATA = textRes.articles || [];
+  CONTACT_DATA = contactRes || { email: "", instagram: "" };
+})();
+</script>
+<script>
+(async function(){
+  await window.SITE_DATA_READY;
+  function escapeAttr(str){
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+  const nav = document.getElementById('mainnav');
+  const homeGrid = document.getElementById('homeGrid');
+  const catPagesWrap = document.getElementById('categoryPages');
+  const pages = {}; // id -> element
+
+  // build nav + home grid + category pages
+  SITE_DATA.forEach((cat, ci) => {
+    // nav link
+    const link = document.createElement('a');
+    link.href = '#';
+    link.dataset.page = cat.id;
+    link.innerHTML = cat.title;
+    nav.appendChild(link);
+
+    // home grid tile
+    const tile = document.createElement('div');
+    tile.className = 'home-cat';
+    tile.dataset.page = cat.id;
+    const coverImg = cat.works.find(w => w.images && w.images.length)?.images[0];
+    tile.innerHTML = `
+      <img src="${coverImg}" alt="${cat.title}" loading="lazy">
+      <div class="label">${cat.title}<span class="en">${cat.subtitle}</span></div>
+    `;
+    homeGrid.appendChild(tile);
+
+    // category page
+    const page = document.createElement('section');
+    page.className = 'page';
+    page.id = 'page-' + cat.id;
+
+    let worksHtml = '';
+    cat.works.forEach((w, wi) => {
+      const galleryId = `${cat.id}-${wi}`;
+      const singleClass = w.images.length === 1 ? ' single' : '';
+      const titleAttr = escapeAttr(w.title || '');
+      const metaAttr = escapeAttr(w.meta || '');
+      const imagesHtml = w.images.map((img, ii) =>
+        `<img src="${img}" alt="${w.title}" loading="lazy" data-gallery="${galleryId}" data-idx="${ii}" data-title="${titleAttr}" data-meta="${metaAttr}">`
+      ).join('');
+
+      let videoHtml = '';
+      if (w.youtube && w.youtube.length){
+        videoHtml = '<div class="video-wrap">' + w.youtube.map(id =>
+          `<div class="yt"><iframe src="https://www.youtube.com/embed/${id}" title="${w.title}" allowfullscreen loading="lazy"></iframe></div>`
+        ).join('') + '</div>';
+      }
+
+      worksHtml += `
+        <div class="work">
+          <h2 class="work-title">${w.title}</h2>
+          ${videoHtml}
+          <div class="work-gallery${singleClass}" data-gallery="${galleryId}">${imagesHtml}</div>
+          <div class="work-caption">
+            <div class="work-meta">${w.meta || ''}</div>
+            ${w.desc ? `<div class="work-desc">${w.desc}</div>` : ''}
+          </div>
+        </div>`;
+    });
+
+    page.innerHTML = `
+      <div class="cat-header">
+        <h1>${cat.title}</h1>
+        <div class="en">${cat.subtitle}</div>
+      </div>
+      ${worksHtml}
+      <div class="site-footer">김윤호 KIM YOONHO</div>
+    `;
+    catPagesWrap.appendChild(page);
+    pages[cat.id] = page;
+  });
+  pages['home'] = document.getElementById('page-home');
+
+  // ---- nav divider ----
+  const navDivider = document.createElement('div');
+  navDivider.className = 'nav-divider';
+  nav.appendChild(navDivider);
+
+  // ---- CV page ----
+  {
+    const link = document.createElement('a');
+    link.href = '#'; link.dataset.page = 'cv'; link.innerHTML = 'CV';
+    nav.appendChild(link);
+
+    let bodyHtml;
+    if (!CV_DATA.length){
+      bodyHtml = `<div class="empty-note">공란</div>`;
+    } else {
+      bodyHtml = `<div class="cv-list">` + CV_DATA.map(e => `
+        <div class="cv-row">
+          <div class="cv-year">${e.year || ''}</div>
+          <div class="cv-info">
+            <div class="cv-title">${e.title || ''}</div>
+            <div class="cv-place">${[e.place, e.city].filter(Boolean).join(', ')}</div>
+          </div>
+        </div>`).join('') + `</div>`;
+    }
+    const page = document.createElement('section');
+    page.className = 'page';
+    page.id = 'page-cv';
+    page.innerHTML = `
+      <div class="cat-header"><h1>CV</h1></div>
+      ${bodyHtml}
+      <div class="site-footer">김윤호 KIM YOONHO</div>
+    `;
+    catPagesWrap.appendChild(page);
+    pages['cv'] = page;
+  }
+
+  // ---- TEXT page (비평글: 제목, 저자, 본문) ----
+  {
+    const link = document.createElement('a');
+    link.href = '#'; link.dataset.page = 'text'; link.innerHTML = 'TEXT';
+    nav.appendChild(link);
+
+    let bodyHtml;
+    if (!TEXT_DATA.length){
+      bodyHtml = `<div class="empty-note">공란</div>`;
+    } else {
+      bodyHtml = TEXT_DATA.map(t => `
+        <div class="text-article">
+          <h2 class="text-title">${t.title || ''}</h2>
+          <div class="text-author">${t.author || ''}</div>
+          <div class="text-body">${t.body || ''}</div>
+        </div>`).join('');
+    }
+    const page = document.createElement('section');
+    page.className = 'page';
+    page.id = 'page-text';
+    page.innerHTML = `
+      <div class="cat-header"><h1>TEXT</h1></div>
+      ${bodyHtml}
+      <div class="site-footer">김윤호 KIM YOONHO</div>
+    `;
+    catPagesWrap.appendChild(page);
+    pages['text'] = page;
+  }
+
+  // ---- CONTACT page (이메일, 인스타그램) ----
+  {
+    const link = document.createElement('a');
+    link.href = '#'; link.dataset.page = 'contact'; link.innerHTML = 'CONTACT';
+    nav.appendChild(link);
+
+    let bodyHtml;
+    if (!CONTACT_DATA.email && !CONTACT_DATA.instagram){
+      bodyHtml = `<div class="empty-note">공란</div>`;
+    } else {
+      bodyHtml = `<div class="contact-list">
+        ${CONTACT_DATA.email ? `<div class="contact-row"><span class="contact-label">Email</span><a href="mailto:${CONTACT_DATA.email}">${CONTACT_DATA.email}</a></div>` : ''}
+        ${CONTACT_DATA.instagram ? `<div class="contact-row"><span class="contact-label">Instagram</span><a href="https://instagram.com/${CONTACT_DATA.instagram.replace('@','')}" target="_blank" rel="noopener">@${CONTACT_DATA.instagram.replace('@','')}</a></div>` : ''}
+      </div>`;
+    }
+    const page = document.createElement('section');
+    page.className = 'page';
+    page.id = 'page-contact';
+    page.innerHTML = `
+      <div class="cat-header"><h1>CONTACT</h1></div>
+      ${bodyHtml}
+      <div class="site-footer">김윤호 KIM YOONHO</div>
+    `;
+    catPagesWrap.appendChild(page);
+    pages['contact'] = page;
+  }
+
+  // ---- mobile sidebar (declared first: showPage() below calls closeSidebar()) ----
+  const hamburger = document.getElementById('hamburger');
+  const sidebar = document.getElementById('sidebar');
+  function closeSidebar(){
+    hamburger.classList.remove('open');
+    sidebar.classList.remove('open');
+  }
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    sidebar.classList.toggle('open');
+  });
+
+  // ---- navigation ----
+  function showPage(id){
+    Object.values(pages).forEach(p => p.classList.remove('active'));
+    (pages[id] || pages['home']).classList.add('active');
+    document.querySelectorAll('.mainnav a').forEach(a => {
+      a.classList.toggle('active', a.dataset.page === id);
+    });
+    window.scrollTo(0,0);
+    closeSidebar();
+    if (location.hash !== '#'+id) history.replaceState(null,'','#'+id);
+  }
+
+  document.addEventListener('click', (e) => {
+    const target = e.target.closest('[data-page]');
+    if (target){
+      e.preventDefault();
+      showPage(target.dataset.page);
+    }
+  });
+
+  window.addEventListener('hashchange', () => {
+    const id = location.hash.replace('#','') || 'home';
+    showPage(id);
+  });
+
+  // initial page from hash
+  const initId = location.hash.replace('#','') || 'home';
+  showPage(initId);
+
+  // ---- lightbox ----
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  const lbCount = document.getElementById('lb-count');
+  const lbTitle = document.getElementById('lb-title');
+  const lbMeta = document.getElementById('lb-meta');
+  let currentGallery = [];
+  let currentIdx = 0;
+  let currentTitle = '';
+  let currentMeta = '';
+
+  function openLightbox(galleryId, idx){
+    const imgs = Array.from(document.querySelectorAll(`img[data-gallery="${galleryId}"]`));
+    currentGallery = imgs.map(img => img.src);
+    currentTitle = imgs[0] ? imgs[0].dataset.title : '';
+    currentMeta = imgs[0] ? imgs[0].dataset.meta : '';
+    currentIdx = idx;
+    renderLightbox();
+    lightbox.classList.add('open');
+  }
+  function renderLightbox(){
+    lbImg.src = currentGallery[currentIdx];
+    lbCount.textContent = (currentIdx+1) + ' / ' + currentGallery.length;
+    lbTitle.textContent = currentTitle || '';
+    lbMeta.textContent = currentMeta || '';
+  }
+  function closeLightbox(){ lightbox.classList.remove('open'); }
+  function nextImg(){ currentIdx = (currentIdx+1) % currentGallery.length; renderLightbox(); }
+  function prevImg(){ currentIdx = (currentIdx-1+currentGallery.length) % currentGallery.length; renderLightbox(); }
+
+  document.addEventListener('click', (e) => {
+    const img = e.target.closest('.work-gallery img');
+    if (img){
+      openLightbox(img.dataset.gallery, parseInt(img.dataset.idx,10));
+    }
+  });
+  document.querySelector('.lb-close').addEventListener('click', closeLightbox);
+  document.querySelector('.lb-next').addEventListener('click', nextImg);
+  document.querySelector('.lb-prev').addEventListener('click', prevImg);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') nextImg();
+    if (e.key === 'ArrowLeft') prevImg();
+  });
+})();
+</script>
+</body>
+</html>
