@@ -7,37 +7,62 @@
       "works": [
         {
           "title": "문턱",
-          "meta": "종이에 페인트 · 205×39×19cm · 2017 / (한 덩어리) · 종이에 페인트 · 39×19×19cm · 2017",
+          "meta": "종이에 페인트 · 205×39×19cm · 2017",
           "desc": "전시장 입구에 종이덩어리를 나두었다. \n전시를 관람하기 위해선, 이 문턱을 넘어가야만 한다. 밟고 지나가도 무방하다. \n그러기 위한 약간의 용기를 내어보길 기대한다.\n\n<무풍지대의 바람>_홍티아트센터_2017",
           "images": [
             "images/image1.jpeg",
-            "images/image2.jpeg",
+            "images/image2.jpeg"
+          ]
+        },
+        {
+          "title": "문턱",
+          "meta": "(한 덩어리) · 종이에 페인트 · 39×19×19cm · 2017",
+          "images": [
             "images/image3.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "부드러운 덩어리",
-          "meta": "종이에 색연필, 파스텔 · 25×25×25cm · 2017 / 종이에 색연필, 파스텔 · 25×25×26cm · 2017 / 종이에 채색 · 70×23×35cm · 2017 / 종이에 색연필, 파스텔 · 25×25×100cm · 2017",
-          "desc": "",
+          "meta": "종이에 색연필, 파스텔 · 25×25×25cm · 2017",
           "images": [
-            "images/image4.jpeg",
-            "images/image5.jpeg",
-            "images/image6.jpeg",
-            "images/image7.jpeg",
+            "images/image4.jpeg"
+          ]
+        },
+        {
+          "title": "부드러운 덩어리",
+          "meta": "종이에 색연필, 파스텔 · 25×25×26cm · 2017",
+          "images": [
+            "images/image5.jpeg"
+          ]
+        },
+        {
+          "title": "부드러운 덩어리",
+          "meta": "종이에 채색 · 70×23×35cm · 2017",
+          "images": [
+            "images/image6.jpeg"
+          ]
+        },
+        {
+          "title": "부드러운 덩어리",
+          "meta": "종이에 색연필, 파스텔 · 25×25×25cm · 2017",
+          "images": [
+            "images/image7.jpeg"
+          ]
+        },
+        {
+          "title": "부드러운 덩어리",
+          "meta": "종이에 색연필, 파스텔 · 25×25×100cm · 2017",
+          "images": [
             "images/image8.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "바람의 흔적",
           "meta": "종이에 색연필, 파스텔 · 50×50×90cm · 2017",
-          "desc": "",
           "images": [
             "images/image9.jpeg",
             "images/image10.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "확률과 확실 사이에서",
@@ -49,40 +74,33 @@
             "images/image13.jpeg",
             "images/image14.jpeg",
             "images/image15.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "떨어져서 바라볼 때 생긴 일",
           "meta": "종이, 벽에 색연필, 파스텔 · 가변크기 · 2017",
-          "desc": "",
           "images": [
             "images/image16.jpeg",
             "images/image17.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "나눠지면서 생긴 형제들",
           "meta": "종이에 색연필, 파스텔 · 가변크기 · 2017",
-          "desc": "",
           "images": [
             "images/image18.jpeg",
             "images/image19.jpeg",
             "images/image20.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "바람의 덩어리",
           "meta": "종이에 색연필, 파스텔 · 250×110×40cm · 2017",
-          "desc": "",
           "images": [
             "images/image21.jpeg",
             "images/image22.jpeg",
             "images/image23.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "숨 쉬는 공간",
@@ -91,8 +109,7 @@
           "images": [
             "images/image24.jpeg",
             "images/image25.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "부드러운 공간",
@@ -116,12 +133,11 @@
             "images/image40.jpeg",
             "images/image41.jpeg",
             "images/image42.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "웅이",
-          "meta": "종이에 색연필, 콘테 · 350×275cm(25×25cm판넬 29개) · 2019 / 종이에 색연필, 콘테, 파스텔 · 280×220cm(20×20cm판넬 29개) · 2019 / 종이에 색연필, 콘테 · 가변크기, 15×15cm판넬 36개(세웠을 때: 210×180cm) · 2019",
+          "meta": "종이에 색연필, 콘테 · 350×275cm(25×25cm판넬 29개) · 2019",
           "desc": "춤\n    추                 한\n      는         위    작\n       언   를             업 \n            어\n\n<웅이>_2017\n\n웅이의 부분 모습",
           "images": [
             "images/image43.jpeg",
@@ -131,17 +147,30 @@
             "images/image47.jpeg",
             "images/image48.jpeg",
             "images/image49.jpeg",
-            "images/image50.jpeg",
+            "images/image50.jpeg"
+          ]
+        },
+        {
+          "title": "웅이",
+          "meta": "종이에 색연필, 콘테, 파스텔 · 280×220cm(20×20cm판넬 29개) · 2019",
+          "desc": "웅이의 부분 모습",
+          "images": [
             "images/image51.jpeg",
             "images/image52.jpeg",
             "images/image53.jpeg",
-            "images/image54.jpeg",
+            "images/image54.jpeg"
+          ]
+        },
+        {
+          "title": "웅이",
+          "meta": "종이에 색연필, 콘테 · 가변크기, 15×15cm판넬 36개(세웠을 때: 210×180cm) · 2019",
+          "desc": "웅이의 부분 모습",
+          "images": [
             "images/image55.png",
             "images/image56.png",
             "images/image57.png",
             "images/image58.png"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "날아라 병아리",
@@ -152,8 +181,7 @@
             "images/image60.jpeg",
             "images/image61.jpeg",
             "images/image62.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "토끼상어",
@@ -165,8 +193,7 @@
             "images/image65.jpeg",
             "images/image66.jpeg",
             "images/image67.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "변을 보러 내려온 토끼나무늘보",
@@ -179,8 +206,7 @@
             "images/image71.jpeg",
             "images/image72.jpeg",
             "images/image73.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "여우야 여우야 뭐하니",
@@ -192,8 +218,7 @@
             "images/image76.jpeg",
             "images/image77.jpeg",
             "images/image78.jpeg"
-          ],
-          "youtube": []
+          ]
         }
       ]
     },
@@ -236,8 +261,7 @@
             "images/image105.jpeg",
             "images/image106.png",
             "images/image107.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "장과 곳",
@@ -259,8 +283,7 @@
             "images/image120.jpeg",
             "images/image121.jpeg",
             "images/image122.jpeg"
-          ],
-          "youtube": []
+          ]
         }
       ]
     },
@@ -283,8 +306,7 @@
             "images/image129.jpeg",
             "images/image130.jpeg",
             "images/image131.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "금지된 술법: 죽은 자의 소생",
@@ -294,30 +316,47 @@
             "images/image132.png",
             "images/image133.png",
             "images/image134.png"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "맨배트(manbet)",
-          "meta": "아이소핑크, 아크릴, 아크릴 거울에 연필, 콘테, 스프레이, 아크릴 채색 · 90×30×225cm · 2021 / 철 지지대, 신발끈, 아이소핑크에 연필, 스프레이, 아크릴 채색 · 60×40×192cm · 2021 / 아이소핑크에 연필, 스프레이, 아크릴 채색 · 62×10×90cm · 2021 / 아이소핑크에 연필, 스프레이, 아크릴 채색 · 63×10×59cm · 2021",
-          "desc": "<맨베트>_2021\n\n함께 있는 두 맨배트",
+          "meta": "아이소핑크, 아크릴, 아크릴 거울에 연필, 콘테, 스프레이, 아크릴 채색 · 90×30×225cm · 2021",
+          "desc": "<맨베트>_2021",
           "images": [
             "images/image135.jpeg",
-            "images/image136.jpeg",
+            "images/image136.jpeg"
+          ]
+        },
+        {
+          "title": "맨배트(manbet)",
+          "meta": "철 지지대, 신발끈, 아이소핑크에 연필, 스프레이, 아크릴 채색 · 60×40×192cm · 2021",
+          "images": [
             "images/image137.jpeg",
             "images/image138.jpeg",
             "images/image139.png",
             "images/image140.png",
             "images/image141.png",
-            "images/image142.png",
+            "images/image142.png"
+          ]
+        },
+        {
+          "title": "맨배트(manbet)",
+          "meta": "아이소핑크에 연필, 스프레이, 아크릴 채색 · 62×10×90cm · 2021",
+          "images": [
             "images/image143.jpeg",
             "images/image144.jpeg",
-            "images/image145.jpeg",
+            "images/image145.jpeg"
+          ]
+        },
+        {
+          "title": "맨배트(manbet)",
+          "meta": "아이소핑크에 연필, 스프레이, 아크릴 채색 · 63×10×59cm · 2021",
+          "desc": "함께 있는 두 맨배트",
+          "images": [
             "images/image146.jpeg",
             "images/image147.jpeg",
             "images/image148.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "불사조-지크 카이저 라인하르트에게 경의를 보내며",
@@ -328,8 +367,7 @@
             "images/image150.jpeg",
             "images/image151.jpeg",
             "images/image152.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "메타(meta)",
@@ -338,41 +376,34 @@
           "images": [
             "images/image153.jpeg",
             "images/image154.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "무경계",
           "meta": "아이소핑크에 송진, 아크릴 채색 · 10×110×198cm · 2022 · 가로와 세로의 만남으로 어느덧 발생한 여백(구멍). 그것으로 서로는 통한다.",
-          "desc": "",
           "images": [
             "images/image155.jpeg",
             "images/image156.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "메타폼(meta form)",
           "meta": "아이소핑크에 아크릴 채색 · 70×75×80cm · 2022",
-          "desc": "",
           "images": [
             "images/image157.jpeg",
             "images/image158.jpeg",
             "images/image159.jpeg",
             "images/image160.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "무릎을 꿇은 건 추진력을 얻기 위함이다",
           "meta": "아이소핑크에 아크릴 채색 · 116×184×191cm · 2022",
-          "desc": "",
           "images": [
             "images/image161.jpeg",
             "images/image162.jpeg",
             "images/image163.jpeg"
-          ],
-          "youtube": []
+          ]
         }
       ]
     },
@@ -383,15 +414,20 @@
       "works": [
         {
           "title": "딱따구리",
-          "meta": "아이소핑크에 스프레이, 페인트, 콘테 · 29×45×10cm · 2020 / 종이에 색연필, 콘테, 스프레이 채색 · 35×17.5cm · 2020",
+          "meta": "아이소핑크에 스프레이, 페인트, 콘테 · 29×45×10cm · 2020",
           "desc": "<딱따구리>_2020\n\n여러 각도에서의 딱따구리",
           "images": [
             "images/image164.jpeg",
             "images/image165.jpeg",
-            "images/image166.jpeg",
+            "images/image166.jpeg"
+          ]
+        },
+        {
+          "title": "딱따구리",
+          "meta": "종이에 색연필, 콘테, 스프레이 채색 · 35×17.5cm · 2020",
+          "images": [
             "images/image167.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "반숙이",
@@ -401,8 +437,7 @@
             "images/image168.jpeg",
             "images/image169.jpeg",
             "images/image170.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "원, 나선",
@@ -417,19 +452,16 @@
             "images/image176.jpeg",
             "images/image177.jpeg",
             "images/image178.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "정전기",
           "meta": "아이소핑크, 레진, 시멘트에 아크릴 채색 · 가변설치(조각크기: 각각 220×10×20cm, 75×50×20cm) · 2023",
-          "desc": "",
           "images": [
             "images/image179.jpeg",
             "images/image180.jpeg",
             "images/image181.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "불",
@@ -444,8 +476,7 @@
             "images/image187.jpeg",
             "images/image188.jpeg",
             "images/image189.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "물",
@@ -458,8 +489,7 @@
             "images/image193.jpeg",
             "images/image194.jpeg",
             "images/image195.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "전기",
@@ -470,13 +500,11 @@
             "images/image197.jpeg",
             "images/image198.jpeg",
             "images/image199.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "터널",
           "meta": "현무암, 거울, 합판에 아크릴 채색 · 가변설치(사진: 지름55x높이127cm) · 2023",
-          "desc": "",
           "images": [
             "images/image200.jpeg",
             "images/image201.jpeg",
@@ -486,13 +514,11 @@
             "images/image205.jpeg",
             "images/image206.jpeg",
             "images/image207.jpg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "떨어지는 꽃잎, 흩날리는 수증기",
           "meta": "4K 단채널 영상 · 15분15초 · 2023",
-          "desc": "",
           "images": [
             "images/image208.png",
             "images/image209.jpeg",
@@ -506,53 +532,109 @@
         {
           "title": "매개",
           "meta": "젤라틴, 나뭇잎 · 15×21×14cm · 2022 · 딱딱하게 굳었던 젤라틴이 햇빛과 바람에 다시 흐물흐물해지고 녹아 내린다. · 미끄럼틀을 타듯이, 떨어지는 나뭇잎처럼, 낮은 곳으로 향하는 물처럼 흐른다",
-          "desc": "",
           "images": [
             "images/image212.jpeg",
             "images/image213.jpeg",
             "images/image214.jpeg",
             "images/image215.jpeg",
             "images/image216.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "오픈 스페이스(open space)",
           "meta": "도로경계선에 페인트 채색 · 가변크기 · 2023 · 이 곳은 전시장인 오픈스페이스배의 앞이다. 오픈스페이스라는 이름과는 달리 앞에 떡하니 있는 경계선이 이상하게 보여서 그 위에 페인트를 칠해보았다.",
-          "desc": "",
           "images": [
             "images/image217.jpeg",
             "images/image218.jpeg",
             "images/image219.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "혼생",
-          "meta": "스펀지에 아크릴 채색 · 134×167×153cm · 2025 / 스펀지에 아크릴 채색 · 85×85×206cm · 2025 / 스펀지에 아크릴 채색 · 80×200×8cm · 2025 / 스펀지에 아크릴 채색 · 150×140×166cm · 2025 / 스펀지에 아크릴 채색 · 220×84×110cm · 2025 / 스펀지에 아크릴 채색 · 73×55×87cm · 2025 / 스펀지에 아크릴 채색 · 78×33×125cm · 2025 / 스펀지에 아크릴 채색 · 189×110×90cm · 2025 / 스펀지에 아크릴 채색 · 190×54×105cm · 2025 / 스펀지에 아크릴 채색 · 125×34×125cm · 2025 / 스펀지에 아크릴 채색 · 가변설치, 66×91×53(2개)cm · 2025 / 시리즈를 활용한 전시 · <어차피 이정표대로 가도 거긴 안 나와> 전시 전경 · 청주시립미술관(청주) · 2025 / 시리즈를 활용한 전시 · <혼돈과 에덴> 전시 전경 · 갤러리 무계(김해) · 2025 / 종이에 색연필 · 50×40cm(4개) · 2025",
+          "meta": "스펀지에 아크릴 채색 · 134×167×153cm · 2025",
           "desc": "<혼생>(混生, chaoscreation)_2025\n\n<혼생>_부분 모습",
           "images": [
             "images/image220.jpeg",
-            "images/image221.png",
+            "images/image221.png"
+          ]
+        },
+        {
+          "title": "혼생",
+          "meta": "스펀지에 아크릴 채색 · 85×85×206cm · 2025",
+          "images": [
             "images/image222.png",
             "images/image223.png",
             "images/image224.png",
-            "images/image225.png",
+            "images/image225.png"
+          ]
+        },
+        {
+          "title": "혼생",
+          "meta": "스펀지에 아크릴 채색 · 80×200×8cm · 2025",
+          "images": [
             "images/image226.png",
             "images/image227.png",
-            "images/image228.png",
-            "images/image229.jpeg",
+            "images/image228.png"
+          ]
+        },
+        {
+          "title": "혼생",
+          "meta": "스펀지에 아크릴 채색 · 150×140×166cm · 2025",
+          "images": [
+            "images/image229.jpeg"
+          ]
+        },
+        {
+          "title": "혼생",
+          "meta": "스펀지에 아크릴 채색 · 220×84×110cm · 2025",
+          "images": [
             "images/image230.png",
-            "images/image231.png",
+            "images/image231.png"
+          ]
+        },
+        {
+          "title": "혼생",
+          "meta": "스펀지에 아크릴 채색 · 73×55×87cm · 2025",
+          "images": [
             "images/image232.jpeg",
             "images/image233.jpeg",
             "images/image234.jpeg",
-            "images/image235.jpeg",
-            "images/image236.jpeg",
-            "images/image237.jpeg",
-            "images/image238.jpeg",
+            "images/image235.jpeg"
+          ]
+        },
+        {
+          "title": "혼생",
+          "meta": "스펀지에 아크릴 채색 · 78×33×125cm · 2025",
+          "images": [
+            "images/image236.jpeg"
+          ]
+        },
+        {
+          "title": "혼생",
+          "meta": "스펀지에 아크릴 채색 · 189×110×90cm · 2025",
+          "images": [
+            "images/image237.jpeg"
+          ]
+        },
+        {
+          "title": "혼생",
+          "meta": "스펀지에 아크릴 채색 · 190×54×105cm · 2025",
+          "images": [
+            "images/image238.jpeg"
+          ]
+        },
+        {
+          "title": "혼생",
+          "meta": "스펀지에 아크릴 채색 · 125×34×125cm · 2025",
+          "images": [
             "images/image239.jpeg",
-            "images/image240.jpeg",
+            "images/image240.jpeg"
+          ]
+        },
+        {
+          "title": "혼생",
+          "meta": "스펀지에 아크릴 채색 · 가변설치, 66×91×53(2개)cm · 2025 / 시리즈를 활용한 전시 · <어차피 이정표대로 가도 거긴 안 나와> 전시 전경 · 청주시립미술관(청주) · 2025 / 시리즈를 활용한 전시 · <혼돈과 에덴> 전시 전경 · 갤러리 무계(김해) · 2025",
+          "images": [
             "images/image241.jpeg",
             "images/image242.jpeg",
             "images/image243.jpeg",
@@ -564,13 +646,18 @@
             "images/image249.jpeg",
             "images/image250.jpeg",
             "images/image251.jpeg",
-            "images/image252.jpeg",
+            "images/image252.jpeg"
+          ]
+        },
+        {
+          "title": "혼생",
+          "meta": "종이에 색연필 · 50×40cm(4개) · 2025",
+          "images": [
             "images/image253.png",
             "images/image254.jpeg",
             "images/image255.jpeg",
             "images/image256.jpeg"
-          ],
-          "youtube": []
+          ]
         }
       ]
     },
@@ -590,8 +677,7 @@
             "images/image260.jpeg",
             "images/image261.jpeg",
             "images/image262.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "새하얀 인테리어",
@@ -601,8 +687,7 @@
             "images/image263.jpeg",
             "images/image264.jpeg",
             "images/image265.jpeg"
-          ],
-          "youtube": []
+          ]
         }
       ]
     },
@@ -630,18 +715,15 @@
             "images/image270.jpeg",
             "images/image272.jpeg",
             "images/image273.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "조리대",
           "meta": "파라솔,고무대야,조리도구,테이블상판,바퀴 · 130×250×70cm · 2016",
-          "desc": "",
           "images": [
             "images/image277.jpeg",
             "images/image278.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "뻥이요~",
@@ -704,8 +786,7 @@
             "images/image332.jpeg",
             "images/image333.jpeg",
             "images/image334.jpeg"
-          ],
-          "youtube": []
+          ]
         }
       ]
     },
@@ -723,20 +804,17 @@
             "images/image336.jpeg",
             "images/image337.jpeg",
             "images/image338.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "부드러운 네트",
           "meta": "철, 인조잔디, 네트, 셔틀콕에 스프레이 채색 · 4×5m이내 가변크기(네트크기: 400×188×40cm) · 2018",
-          "desc": "",
           "images": [
             "images/image339.jpeg",
             "images/image340.jpeg",
             "images/image341.jpeg",
             "images/image342.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "배드민턴 치고 있는데, 바람이 분다",
@@ -746,27 +824,22 @@
             "images/image343.jpeg",
             "images/image344.jpeg",
             "images/image345.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "사는 방식 중 하나",
           "meta": "강가에서 주운 돌, 철사, 셔틀콕 · 154×102×137cm · 2018",
-          "desc": "",
           "images": [
             "images/image346.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "새싹",
           "meta": "철, 셔틀콕, 철사, 스프레이 채색 · 213×24.5×24.5cm · 2018",
-          "desc": "",
           "images": [
             "images/image347.jpeg",
             "images/image348.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "새사람(birdman)",
@@ -776,8 +849,7 @@
             "images/image349.png",
             "images/image350.png",
             "images/image351.png"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "길 잃은 철새",
@@ -787,37 +859,30 @@
             "images/image352.jpeg",
             "images/image353.jpeg",
             "images/image354.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "Here we are",
           "meta": "전시 전경, 수창청춘맨숀, 2020",
-          "desc": "",
           "images": [
             "images/image355.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "괴조",
           "meta": "철사, 아이소핑크, 셔틀콕에 스프레이 채색 · 75×44×50cm · 2018",
-          "desc": "",
           "images": [
             "images/image356.png",
             "images/image357.png"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "철새",
           "meta": "아이소핑크, 철사, 비닐봉지, 파스텔, 스프레이 채색 · 11×40×43cm · 2018",
-          "desc": "",
           "images": [
             "images/image358.jpeg",
             "images/image359.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "굴러가는 팔",
@@ -828,8 +893,7 @@
             "images/image361.png",
             "images/image362.jpeg",
             "images/image363.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "두 번의 진화: 40개의 셔틀콕과 60마리의 기러기",
@@ -840,153 +904,176 @@
             "images/image365.png",
             "images/image366.png",
             "images/image367.png"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "러브 올",
           "meta": "(love all) · 종이에 색연필, 파스텔 · 20×20cm · 2019",
-          "desc": "",
           "images": [
             "images/image368.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "무제",
           "meta": "종이에 색연필, 파스텔 · 29.5×42cm · 2019",
-          "desc": "",
           "images": [
             "images/image369.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "챌린지 신청",
-          "meta": "종이에 볼펜 · 30×30cm · 2019 / 종이에 색연필, 콘테 · 45.5×53cm · 2019 / 종이에 연필, 파스텔, 콘테 · 33.5×21.5cm · 2019",
-          "desc": "",
+          "meta": "종이에 볼펜 · 30×30cm · 2019",
           "images": [
             "images/image370.jpeg",
-            "images/image371.jpeg",
-            "images/image372.jpeg",
+            "images/image371.jpeg"
+          ]
+        },
+        {
+          "title": "챌린지 신청",
+          "meta": "종이에 색연필, 콘테 · 45.5×53cm · 2019",
+          "images": [
+            "images/image372.jpeg"
+          ]
+        },
+        {
+          "title": "챌린지 신청",
+          "meta": "종이에 연필, 파스텔, 콘테 · 33.5×21.5cm · 2019",
+          "images": [
             "images/image373.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "날아라 병아리",
           "meta": "종이에 볼펜, 색연필 · 35×24.5cm · 2019",
-          "desc": "",
           "images": [
             "images/image374.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "손날개",
-          "meta": "종이에 연필, 파스텔, 콘테 · 33.5×24cm · 2019 / 종이에 연필, 파스텔, 콘테 · 35×27.5cm · 2019 / 종이에 연필, 파스텔 · 60.5×50cm · 2019",
-          "desc": "",
+          "meta": "종이에 연필, 파스텔, 콘테 · 33.5×24cm · 2019",
           "images": [
-            "images/image375.jpeg",
-            "images/image376.jpeg",
+            "images/image375.jpeg"
+          ]
+        },
+        {
+          "title": "손날개",
+          "meta": "종이에 연필, 파스텔, 콘테 · 35×27.5cm · 2019",
+          "images": [
+            "images/image376.jpeg"
+          ]
+        },
+        {
+          "title": "손날개",
+          "meta": "종이에 연필, 파스텔 · 60.5×50cm · 2019",
+          "images": [
             "images/image377.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "무제",
           "meta": "종이에 볼펜, 색연필 · 25×36cm · 2019",
-          "desc": "",
           "images": [
             "images/image378.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "보아라",
           "meta": "종이에 연필, 파스텔, 콘테 · 38×43cm · 2019",
-          "desc": "",
           "images": [
             "images/image379.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "챌린지 신청",
           "meta": "종이에 색연필, 콘테 · 42×59cm · 2019",
-          "desc": "",
           "images": [
             "images/image380.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "무제",
-          "meta": "종이에 색연필 · 21×29.5cm · 2019 / 종이에 콘테 · 60.5×45.5cm · 2019 / 종이에 콘테 · 30×30cm · 2019 / 종이에 색연필, 파스텔, 콘테 · 46×62cm · 2019",
-          "desc": "",
+          "meta": "종이에 색연필 · 21×29.5cm · 2019",
           "images": [
-            "images/image381.jpeg",
-            "images/image382.jpeg",
-            "images/image383.jpeg",
+            "images/image381.jpeg"
+          ]
+        },
+        {
+          "title": "무제",
+          "meta": "종이에 콘테 · 60.5×45.5cm · 2019",
+          "images": [
+            "images/image382.jpeg"
+          ]
+        },
+        {
+          "title": "무제",
+          "meta": "종이에 콘테 · 30×30cm · 2019",
+          "images": [
+            "images/image383.jpeg"
+          ]
+        },
+        {
+          "title": "무제",
+          "meta": "종이에 색연필, 파스텔, 콘테 · 46×62cm · 2019",
+          "images": [
             "images/image384.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "손바닥으로 하늘 가리기",
           "meta": "종이에 파스텔, 콘테 · 50×50cm · 2019",
-          "desc": "",
           "images": [
             "images/image385.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "불확실하지만 확실해야만 하는 확실",
-          "meta": "종이에 콘테 · 53×41cm · 2019 / 종이에 콘테 · 52×36cm · 2019",
-          "desc": "",
+          "meta": "종이에 콘테 · 53×41cm · 2019",
           "images": [
-            "images/image386.jpeg",
+            "images/image386.jpeg"
+          ]
+        },
+        {
+          "title": "불확실하지만 확실해야만 하는 확실",
+          "meta": "종이에 콘테 · 52×36cm · 2019",
+          "images": [
             "images/image387.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "무제",
           "meta": "종이에 콘테 · 30×40cm · 2019",
-          "desc": "",
           "images": [
             "images/image388.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "여섯 번째 손가락",
           "meta": "종이에 파스텔, 콘테 · 32×41cm · 2019",
-          "desc": "",
           "images": [
             "images/image389.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "무제",
           "meta": "종이에 색연필 · 41×27.5cm · 2019",
-          "desc": "",
           "images": [
             "images/image390.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "날아라 병아리",
-          "meta": "35×35cm · 종이에 콘테 · 2019 / 40×40cm · 종이에 콘테 · 2019",
-          "desc": "",
+          "meta": "35×35cm · 종이에 콘테 · 2019",
           "images": [
-            "images/image391.jpeg",
+            "images/image391.jpeg"
+          ]
+        },
+        {
+          "title": "날아라 병아리",
+          "meta": "40×40cm · 종이에 콘테 · 2019",
+          "images": [
             "images/image392.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "뽈이와 웅이에게",
@@ -998,8 +1085,7 @@
             "images/image395.png",
             "images/image396.png",
             "images/image397.png"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "관심법",
@@ -1007,18 +1093,15 @@
           "desc": "어느 정도 얌전하게 자란 아이 같은, 차분하게 잘 쌓여 있는 레이어를 꿰뚫어보는 통상적 시야.",
           "images": [
             "images/image398.png"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "무제",
           "meta": "철근, 신발, 우레탄폼, 포맥스에 콘테, 스프레이 채색 · 54×35×63cm · 2020",
-          "desc": "",
           "images": [
             "images/image399.jpeg",
             "images/image400.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "나를 위한 퍼포먼스",
@@ -1070,8 +1153,7 @@
             "images/image423.jpeg",
             "images/image424.jpeg",
             "images/image425.jpeg"
-          ],
-          "youtube": []
+          ]
         },
         {
           "title": "챌린지 신청: 니 몸대로 해라",
