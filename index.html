@@ -63,6 +63,26 @@
   nav.mainnav a:hover{color:var(--black);}
   nav.mainnav a.active{color:var(--black);font-weight:500;}
 
+  /* ---------- Sidebar accordion (sub-categories) ---------- */
+  .nav-item{display:flex;flex-direction:column;}
+  .subnav{
+    max-height:0;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    transition:max-height .3s ease;
+  }
+  .nav-item.open .subnav{max-height:400px;}
+  .subnav-link{
+    font-size:11.5px;
+    color:var(--gray-light);
+    padding:5px 0 5px 16px;
+    letter-spacing:0.01em;
+    transition:color .15s ease;
+  }
+  .subnav-link:hover{color:var(--black);}
+  .subnav-link.active{color:var(--black);font-weight:500;}
+
   .category-block{margin-top:26px;}
   .category-block .cat-title{
     font-size:13px;
@@ -226,6 +246,35 @@
   .work-gallery img:hover{opacity:0.85;}
   .work-gallery.single{grid-template-columns:minmax(260px,560px);}
   .work-gallery.single img{height:auto;max-height:640px;object-fit:contain;background:none;}
+
+  /* Sub-category block (grouped thumbnail archive, erwinwurm.com-style) */
+  .subcat{
+    max-width:1100px;
+    margin-bottom:56px;
+  }
+  .subcat-title{
+    font-size:15px;
+    font-weight:500;
+    margin:0 0 16px 0;
+    color:var(--black);
+  }
+  .thumb-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+    gap:4px;
+    margin-bottom:18px;
+  }
+  .thumb-grid img{
+    width:100%;
+    height:140px;
+    object-fit:cover;
+    cursor:zoom-in;
+    background:#f2f2f2;
+    transition:opacity .2s ease;
+  }
+  .thumb-grid img:hover{opacity:0.8;}
+  .subcat .work-desc{margin-top:0;margin-bottom:8px;}
+  .subcat .work-desc + .work-desc{margin-top:10px;}
 
   .video-wrap{
     display:grid;
@@ -393,6 +442,8 @@
     .home-grid{grid-template-columns:1fr 1fr;}
     .work-gallery{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));}
     .work-gallery img{height:170px;}
+    .thumb-grid{grid-template-columns:repeat(auto-fill,minmax(90px,1fr));}
+    .thumb-grid img{height:100px;}
   }
 </style>
 </head>
@@ -494,12 +545,37 @@ window.SITE_DATA_READY = (async function(){
 
   // build nav + home grid + category pages
   SITE_DATA.forEach((cat, ci) => {
-    // nav link
+    // nav item (main link + optional accordion sub-nav)
+    const navItem = document.createElement('div');
+    navItem.className = 'nav-item';
+
     const link = document.createElement('a');
     link.href = '#';
     link.dataset.page = cat.id;
     link.innerHTML = cat.title;
-    nav.appendChild(link);
+    navItem.appendChild(link);
+
+    // sub-categories, in first-appearance order
+    const subLabels = [];
+    cat.works.forEach(w => {
+      if (w.subcategory && !subLabels.includes(w.subcategory)) subLabels.push(w.subcategory);
+    });
+    if (subLabels.length){
+      navItem.classList.add('has-subnav');
+      const subnav = document.createElement('div');
+      subnav.className = 'subnav';
+      subLabels.forEach((label, si) => {
+        const subLink = document.createElement('a');
+        subLink.href = '#';
+        subLink.className = 'subnav-link';
+        subLink.dataset.cat = cat.id;
+        subLink.dataset.subtarget = `subcat-${cat.id}-${si}`;
+        subLink.textContent = label;
+        subnav.appendChild(subLink);
+      });
+      navItem.appendChild(subnav);
+    }
+    nav.appendChild(navItem);
 
     // home grid tile
     const tile = document.createElement('div');
@@ -512,63 +588,65 @@ window.SITE_DATA_READY = (async function(){
     `;
     homeGrid.appendChild(tile);
 
-    // category page
+    // category page: works grouped into sub-category thumbnail grids
+    // (falls back to one ungrouped grid when a category has no sub-categories)
     const page = document.createElement('section');
     page.className = 'page';
     page.id = 'page-' + cat.id;
 
-    let worksHtml = '';
-    let wIdx = 0;
-    while (wIdx < cat.works.length) {
-      const groupTitle = cat.works[wIdx].title;
-      const group = [];
-      while (wIdx < cat.works.length && cat.works[wIdx].title === groupTitle) {
-        group.push({ w: cat.works[wIdx], wi: wIdx });
-        wIdx++;
+    const buckets = []; // [{ key, items: [work,...] }]
+    const bucketIndex = {};
+    cat.works.forEach(w => {
+      const key = w.subcategory || '';
+      if (!(key in bucketIndex)) {
+        bucketIndex[key] = buckets.length;
+        buckets.push({ key, items: [] });
       }
+      buckets[bucketIndex[key]].items.push(w);
+    });
 
-      let variantsHtml = '';
-      group.forEach(({ w, wi }) => {
-        const galleryId = `${cat.id}-${wi}`;
-        const singleClass = w.images.length === 1 ? ' single' : '';
+    let subcatHtml = '';
+    buckets.forEach((bucket, si) => {
+      const galleryId = `${cat.id}-${si}`;
+      let imgN = 0;
+      const thumbsHtml = bucket.items.map(w => {
         const titleAttr = escapeAttr(w.title || '');
         const metaAttr = escapeAttr(w.meta || '');
-        const imagesHtml = w.images.map((img, ii) => {
+        return w.images.map(img => {
           const captionAttr = escapeAttr(img.caption || '');
-          return `<img src="${img.image}" alt="${w.title}" loading="lazy" data-gallery="${galleryId}" data-idx="${ii}" data-title="${titleAttr}" data-meta="${metaAttr}" data-photo-caption="${captionAttr}">`;
+          const idx = imgN++;
+          return `<img src="${img.image}" alt="${w.title}" loading="lazy" data-gallery="${galleryId}" data-idx="${idx}" data-title="${titleAttr}" data-meta="${metaAttr}" data-photo-caption="${captionAttr}">`;
         }).join('');
+      }).join('');
 
-        let videoHtml = '';
+      let videoHtml = '';
+      bucket.items.forEach(w => {
         if (w.youtube && w.youtube.length){
-          videoHtml = '<div class="video-wrap">' + w.youtube.map(id =>
+          videoHtml += w.youtube.map(id =>
             `<div class="yt"><iframe src="https://www.youtube.com/embed/${id}" title="${w.title}" allowfullscreen loading="lazy"></iframe></div>`
-          ).join('') + '</div>';
+          ).join('');
         }
-
-        variantsHtml += `
-          <div class="work-variant">
-            ${videoHtml}
-            <div class="work-gallery${singleClass}" data-gallery="${galleryId}">${imagesHtml}</div>
-            <div class="work-caption">
-              <div class="work-meta">${w.meta || ''}</div>
-              ${w.desc ? `<div class="work-desc">${w.desc}</div>` : ''}
-            </div>
-          </div>`;
       });
+      if (videoHtml) videoHtml = `<div class="video-wrap">${videoHtml}</div>`;
 
-      worksHtml += `
-        <div class="work">
-          <h2 class="work-title">${groupTitle}</h2>
-          ${variantsHtml}
+      const descHtml = bucket.items.filter(w => w.desc).map(w => `<div class="work-desc">${w.desc}</div>`).join('');
+      const headerHtml = bucket.key ? `<h2 class="subcat-title">${bucket.key}</h2>` : '';
+
+      subcatHtml += `
+        <div class="subcat" id="subcat-${cat.id}-${si}">
+          ${headerHtml}
+          ${videoHtml}
+          <div class="thumb-grid" data-gallery="${galleryId}">${thumbsHtml}</div>
+          ${descHtml}
         </div>`;
-    }
+    });
 
     page.innerHTML = `
       <div class="cat-header">
         <h1>${cat.title}</h1>
         <div class="en">${cat.subtitle}</div>
       </div>
-      ${worksHtml}
+      ${subcatHtml}
       <div class="site-footer">김윤호 KIM YOONHO</div>
     `;
     catPagesWrap.appendChild(page);
@@ -681,18 +759,32 @@ window.SITE_DATA_READY = (async function(){
   });
 
   // ---- navigation ----
-  function showPage(id){
+  function showPage(id, opts){
+    opts = opts || {};
     Object.values(pages).forEach(p => p.classList.remove('active'));
     (pages[id] || pages['home']).classList.add('active');
     document.querySelectorAll('.mainnav a').forEach(a => {
       a.classList.toggle('active', a.dataset.page === id);
     });
-    window.scrollTo(0,0);
+    document.querySelectorAll('.nav-item').forEach(item => {
+      const mainLink = item.querySelector(':scope > a');
+      item.classList.toggle('open', !!mainLink && mainLink.dataset.page === id);
+    });
+    if (!opts.keepScroll) window.scrollTo(0,0);
     closeSidebar();
     if (location.hash !== '#'+id) history.replaceState(null,'','#'+id);
   }
 
   document.addEventListener('click', (e) => {
+    const subLink = e.target.closest('.subnav-link');
+    if (subLink){
+      e.preventDefault();
+      showPage(subLink.dataset.cat, { keepScroll: true });
+      document.querySelectorAll('.subnav-link').forEach(a => a.classList.toggle('active', a === subLink));
+      const target = document.getElementById(subLink.dataset.subtarget);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
     const target = e.target.closest('[data-page]');
     if (target){
       e.preventDefault();
@@ -718,16 +810,18 @@ window.SITE_DATA_READY = (async function(){
   const lbPhotoCaption = document.getElementById('lb-photo-caption');
   let currentGallery = [];
   let currentCaptions = [];
+  let currentTitles = [];
+  let currentMetas = [];
   let currentIdx = 0;
-  let currentTitle = '';
-  let currentMeta = '';
 
   function openLightbox(galleryId, idx){
+    // a gallery is now a whole sub-category grid and can span several works,
+    // so title/meta/caption are tracked per-image, not once for the gallery
     const imgs = Array.from(document.querySelectorAll(`img[data-gallery="${galleryId}"]`));
     currentGallery = imgs.map(img => img.src);
     currentCaptions = imgs.map(img => img.dataset.photoCaption || '');
-    currentTitle = imgs[0] ? imgs[0].dataset.title : '';
-    currentMeta = imgs[0] ? imgs[0].dataset.meta : '';
+    currentTitles = imgs.map(img => img.dataset.title || '');
+    currentMetas = imgs.map(img => img.dataset.meta || '');
     currentIdx = idx;
     renderLightbox();
     lightbox.classList.add('open');
@@ -735,8 +829,8 @@ window.SITE_DATA_READY = (async function(){
   function renderLightbox(){
     lbImg.src = currentGallery[currentIdx];
     lbCount.textContent = (currentIdx+1) + ' / ' + currentGallery.length;
-    lbTitle.textContent = currentTitle || '';
-    lbMeta.textContent = currentMeta || '';
+    lbTitle.textContent = currentTitles[currentIdx] || '';
+    lbMeta.textContent = currentMetas[currentIdx] || '';
     lbPhotoCaption.textContent = currentCaptions[currentIdx] || '';
     lbPhotoCaption.style.display = currentCaptions[currentIdx] ? '' : 'none';
   }
@@ -745,7 +839,7 @@ window.SITE_DATA_READY = (async function(){
   function prevImg(){ currentIdx = (currentIdx-1+currentGallery.length) % currentGallery.length; renderLightbox(); }
 
   document.addEventListener('click', (e) => {
-    const img = e.target.closest('.work-gallery img');
+    const img = e.target.closest('.thumb-grid img');
     if (img){
       openLightbox(img.dataset.gallery, parseInt(img.dataset.idx,10));
     }
