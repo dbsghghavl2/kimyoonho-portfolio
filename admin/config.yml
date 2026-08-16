@@ -34,7 +34,10 @@ collections:
                   - label: "이미지"
                     name: "images"
                     widget: "list"
-                    field: { label: "이미지", name: "image", widget: "image" }
+                    summary: "{{fields.caption}}"
+                    fields:
+                      - { label: "이미지", name: "image", widget: "image" }
+                      - { label: "이 사진 설명 (선택, 클릭하면 표시됨)", name: "caption", widget: "string", required: false }
                   - label: "유튜브 영상 ID 목록"
                     name: "youtube"
                     widget: "list"

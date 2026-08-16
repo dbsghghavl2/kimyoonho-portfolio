@@ -301,6 +301,12 @@
     font-size:12px;
     color:var(--gray-text);
   }
+  #lightbox .lb-caption .lb-photo-caption{
+    font-size:12px;
+    color:var(--gray-text);
+    font-style:italic;
+    margin-top:8px;
+  }
 
   /* nav divider (whitespace only, no line — per design system) */
   .nav-divider{ height:22px; }
@@ -436,6 +442,7 @@
   <div class="lb-caption">
     <div class="lb-title" id="lb-title"></div>
     <div class="lb-meta" id="lb-meta"></div>
+    <div class="lb-photo-caption" id="lb-photo-caption"></div>
   </div>
   <div class="lb-count" id="lb-count"></div>
 </div>
@@ -498,7 +505,7 @@ window.SITE_DATA_READY = (async function(){
     const tile = document.createElement('div');
     tile.className = 'home-cat';
     tile.dataset.page = cat.id;
-    const coverImg = cat.works.find(w => w.images && w.images.length)?.images[0];
+    const coverImg = cat.works.find(w => w.images && w.images.length)?.images[0]?.image;
     tile.innerHTML = `
       <img src="${coverImg}" alt="${cat.title}" loading="lazy">
       <div class="label">${cat.title}<span class="en">${cat.subtitle}</span></div>
@@ -526,9 +533,10 @@ window.SITE_DATA_READY = (async function(){
         const singleClass = w.images.length === 1 ? ' single' : '';
         const titleAttr = escapeAttr(w.title || '');
         const metaAttr = escapeAttr(w.meta || '');
-        const imagesHtml = w.images.map((img, ii) =>
-          `<img src="${img}" alt="${w.title}" loading="lazy" data-gallery="${galleryId}" data-idx="${ii}" data-title="${titleAttr}" data-meta="${metaAttr}">`
-        ).join('');
+        const imagesHtml = w.images.map((img, ii) => {
+          const captionAttr = escapeAttr(img.caption || '');
+          return `<img src="${img.image}" alt="${w.title}" loading="lazy" data-gallery="${galleryId}" data-idx="${ii}" data-title="${titleAttr}" data-meta="${metaAttr}" data-photo-caption="${captionAttr}">`;
+        }).join('');
 
         let videoHtml = '';
         if (w.youtube && w.youtube.length){
@@ -707,7 +715,9 @@ window.SITE_DATA_READY = (async function(){
   const lbCount = document.getElementById('lb-count');
   const lbTitle = document.getElementById('lb-title');
   const lbMeta = document.getElementById('lb-meta');
+  const lbPhotoCaption = document.getElementById('lb-photo-caption');
   let currentGallery = [];
+  let currentCaptions = [];
   let currentIdx = 0;
   let currentTitle = '';
   let currentMeta = '';
@@ -715,6 +725,7 @@ window.SITE_DATA_READY = (async function(){
   function openLightbox(galleryId, idx){
     const imgs = Array.from(document.querySelectorAll(`img[data-gallery="${galleryId}"]`));
     currentGallery = imgs.map(img => img.src);
+    currentCaptions = imgs.map(img => img.dataset.photoCaption || '');
     currentTitle = imgs[0] ? imgs[0].dataset.title : '';
     currentMeta = imgs[0] ? imgs[0].dataset.meta : '';
     currentIdx = idx;
@@ -726,6 +737,8 @@ window.SITE_DATA_READY = (async function(){
     lbCount.textContent = (currentIdx+1) + ' / ' + currentGallery.length;
     lbTitle.textContent = currentTitle || '';
     lbMeta.textContent = currentMeta || '';
+    lbPhotoCaption.textContent = currentCaptions[currentIdx] || '';
+    lbPhotoCaption.style.display = currentCaptions[currentIdx] ? '' : 'none';
   }
   function closeLightbox(){ lightbox.classList.remove('open'); }
   function nextImg(){ currentIdx = (currentIdx+1) % currentGallery.length; renderLightbox(); }
