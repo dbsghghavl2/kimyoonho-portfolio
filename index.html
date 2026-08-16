@@ -191,6 +191,9 @@
     font-weight:500;
     margin:0 0 14px 0;
   }
+  .work-variant + .work-variant{
+    margin-top:40px;
+  }
   .work-caption{
     margin-top:18px;
   }
@@ -508,33 +511,49 @@ window.SITE_DATA_READY = (async function(){
     page.id = 'page-' + cat.id;
 
     let worksHtml = '';
-    cat.works.forEach((w, wi) => {
-      const galleryId = `${cat.id}-${wi}`;
-      const singleClass = w.images.length === 1 ? ' single' : '';
-      const titleAttr = escapeAttr(w.title || '');
-      const metaAttr = escapeAttr(w.meta || '');
-      const imagesHtml = w.images.map((img, ii) =>
-        `<img src="${img}" alt="${w.title}" loading="lazy" data-gallery="${galleryId}" data-idx="${ii}" data-title="${titleAttr}" data-meta="${metaAttr}">`
-      ).join('');
-
-      let videoHtml = '';
-      if (w.youtube && w.youtube.length){
-        videoHtml = '<div class="video-wrap">' + w.youtube.map(id =>
-          `<div class="yt"><iframe src="https://www.youtube.com/embed/${id}" title="${w.title}" allowfullscreen loading="lazy"></iframe></div>`
-        ).join('') + '</div>';
+    let wIdx = 0;
+    while (wIdx < cat.works.length) {
+      const groupTitle = cat.works[wIdx].title;
+      const group = [];
+      while (wIdx < cat.works.length && cat.works[wIdx].title === groupTitle) {
+        group.push({ w: cat.works[wIdx], wi: wIdx });
+        wIdx++;
       }
+
+      let variantsHtml = '';
+      group.forEach(({ w, wi }) => {
+        const galleryId = `${cat.id}-${wi}`;
+        const singleClass = w.images.length === 1 ? ' single' : '';
+        const titleAttr = escapeAttr(w.title || '');
+        const metaAttr = escapeAttr(w.meta || '');
+        const imagesHtml = w.images.map((img, ii) =>
+          `<img src="${img}" alt="${w.title}" loading="lazy" data-gallery="${galleryId}" data-idx="${ii}" data-title="${titleAttr}" data-meta="${metaAttr}">`
+        ).join('');
+
+        let videoHtml = '';
+        if (w.youtube && w.youtube.length){
+          videoHtml = '<div class="video-wrap">' + w.youtube.map(id =>
+            `<div class="yt"><iframe src="https://www.youtube.com/embed/${id}" title="${w.title}" allowfullscreen loading="lazy"></iframe></div>`
+          ).join('') + '</div>';
+        }
+
+        variantsHtml += `
+          <div class="work-variant">
+            ${videoHtml}
+            <div class="work-gallery${singleClass}" data-gallery="${galleryId}">${imagesHtml}</div>
+            <div class="work-caption">
+              <div class="work-meta">${w.meta || ''}</div>
+              ${w.desc ? `<div class="work-desc">${w.desc}</div>` : ''}
+            </div>
+          </div>`;
+      });
 
       worksHtml += `
         <div class="work">
-          <h2 class="work-title">${w.title}</h2>
-          ${videoHtml}
-          <div class="work-gallery${singleClass}" data-gallery="${galleryId}">${imagesHtml}</div>
-          <div class="work-caption">
-            <div class="work-meta">${w.meta || ''}</div>
-            ${w.desc ? `<div class="work-desc">${w.desc}</div>` : ''}
-          </div>
+          <h2 class="work-title">${groupTitle}</h2>
+          ${variantsHtml}
         </div>`;
-    });
+    }
 
     page.innerHTML = `
       <div class="cat-header">
