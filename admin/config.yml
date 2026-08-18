@@ -62,15 +62,7 @@ collections:
         label: "CV"
         name: "cvdata"
         fields:
-          - label: "이력 목록"
-            name: "entries"
-            widget: "list"
-            summary: "{{fields.year}} · {{fields.title}}"
-            fields:
-              - { label: "연도", name: "year", widget: "string" }
-              - { label: "제목", name: "title", widget: "string" }
-              - { label: "장소", name: "place", widget: "string", required: false }
-              - { label: "도시", name: "city", widget: "string", required: false }
+          - { label: "이력 (자유 양식 — 원하는 대로 줄바꿈해서 쓰세요)", name: "text", widget: "text", required: false }
 
       - file: "content/contact-data.json"
         label: "CONTACT (연락처)"

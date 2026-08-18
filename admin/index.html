@@ -96,18 +96,8 @@
 
     var CvDataPreview = createClass({
       render: function () {
-        var entries = this.props.entry.getIn(['data', 'entries']) || [];
-        return h('div', { style: { padding: '20px', maxWidth: '500px' } },
-          entries.map(function (e, i) {
-            return h('div', { key: i, style: { display: 'flex', gap: '16px', padding: '10px 0', borderBottom: '1px solid #eee', fontSize: '13px' } },
-              h('div', { style: { flex: '0 0 50px', color: '#999' } }, e.get('year')),
-              h('div', {},
-                h('div', {}, e.get('title')),
-                h('div', { style: { fontSize: '11px', color: '#999' } }, [e.get('place'), e.get('city')].filter(Boolean).join(', '))
-              )
-            );
-          })
-        );
+        var text = this.props.entry.getIn(['data', 'text']) || '';
+        return h('div', { style: { padding: '20px', maxWidth: '640px', fontSize: '14px', lineHeight: '2', color: '#333', whiteSpace: 'pre-line' } }, text);
       }
     });
     CMS.registerPreviewTemplate('cvdata', CvDataPreview);

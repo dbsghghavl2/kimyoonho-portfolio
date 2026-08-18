@@ -421,21 +421,14 @@
     letter-spacing:0.02em;
   }
 
-  /* CV */
-  .cv-list{ max-width:640px; }
-  .cv-row{
-    display:flex;
-    gap:24px;
-    padding:14px 0;
+  /* CV: free-form text, same treatment as the TEXT page body */
+  .cv-text{
+    max-width:640px;
+    font-size:14px;
+    line-height:2;
+    white-space:pre-line;
+    color:#333;
   }
-  .cv-year{
-    flex:0 0 56px;
-    font-size:13px;
-    color:var(--gray-text);
-  }
-  .cv-info{ flex:1; }
-  .cv-title{ font-size:14px; margin-bottom:2px; }
-  .cv-place{ font-size:12px; color:var(--gray-text); }
 
   /* TEXT (비평글) */
   .text-article{
@@ -553,7 +546,7 @@
 
 <script>
 let SITE_DATA = [];
-let CV_DATA = [];
+let CV_DATA = "";
 let TEXT_DATA = [];
 let CONTACT_DATA = { email: "", instagram: "" };
 
@@ -571,12 +564,12 @@ async function loadJSON(path, fallback){
 window.SITE_DATA_READY = (async function(){
   const [siteRes, cvRes, textRes, contactRes] = await Promise.all([
     loadJSON("content/site-data.json", { categories: [] }),
-    loadJSON("content/cv-data.json", { entries: [] }),
+    loadJSON("content/cv-data.json", { text: "" }),
     loadJSON("content/text-data.json", { articles: [] }),
     loadJSON("content/contact-data.json", { email: "", instagram: "" })
   ]);
   SITE_DATA = siteRes.categories || [];
-  CV_DATA = cvRes.entries || [];
+  CV_DATA = cvRes.text || "";
   TEXT_DATA = textRes.articles || [];
   CONTACT_DATA = contactRes || { email: "", instagram: "" };
 })();
@@ -733,19 +726,10 @@ window.SITE_DATA_READY = (async function(){
     link.href = '#'; link.dataset.page = 'cv'; link.innerHTML = 'CV';
     nav.appendChild(link);
 
-    let bodyHtml;
-    if (!CV_DATA.length){
-      bodyHtml = `<div class="empty-note">공란</div>`;
-    } else {
-      bodyHtml = `<div class="cv-list">` + CV_DATA.map(e => `
-        <div class="cv-row">
-          <div class="cv-year">${e.year || ''}</div>
-          <div class="cv-info">
-            <div class="cv-title">${e.title || ''}</div>
-            <div class="cv-place">${[e.place, e.city].filter(Boolean).join(', ')}</div>
-          </div>
-        </div>`).join('') + `</div>`;
-    }
+    const cvText = (CV_DATA || '').trim();
+    const bodyHtml = cvText
+      ? `<div class="cv-text">${cvText}</div>`
+      : `<div class="empty-note">공란</div>`;
     const page = document.createElement('section');
     page.className = 'page';
     page.id = 'page-cv';
