@@ -31,14 +31,14 @@ collections:
                   - { label: "작품명", name: "title", widget: "string" }
                   - { label: "소카테고리 (예: 무풍지대의 바람 (2017)) — 같은 이름을 쓴 작품들끼리 메뉴에서 묶입니다", name: "subcategory", widget: "string", required: false }
                   - { label: "메타정보 (재료 · 크기 · 연도)", name: "meta", widget: "string", required: false }
-                  - { label: "작품 설명", name: "desc", widget: "text", required: false }
                   - label: "이미지"
                     name: "images"
                     widget: "list"
                     summary: "{{fields.caption}}"
                     fields:
                       - { label: "이미지", name: "image", widget: "image" }
-                      - { label: "이 사진 설명 (선택, 클릭하면 표시됨)", name: "caption", widget: "string", required: false }
+                      - { label: "이 사진의 짧은 설명 (사진 클릭하면 표시)", name: "caption", widget: "string", required: false }
+                      - { label: "이 사진의 긴 설명 (사진 클릭하면 캡션 밑에 표시)", name: "note", widget: "text", required: false }
                   - label: "유튜브 영상 ID 목록"
                     name: "youtube"
                     widget: "list"

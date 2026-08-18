@@ -9,12 +9,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --gray-text:#888888;
-    --gray-light:#bbbbbb;
-    --black:#111111;
+    /* palette + metrics measured from erwinwurm.com/artworks/sculptures */
+    --gray-text:#999999;
+    --gray-light:#999999;
+    --black:#000000;
     --bg:#ffffff;
     --sidebar-w:240px;
     --gap:28px;
+    --thumb-h:125px;   /* reference uses fixed-height, aspect-preserved thumbs */
+    --thumb-gap:10px;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -53,15 +56,16 @@
   }
   nav.mainnav{display:flex;flex-direction:column;}
   nav.mainnav a{
-    font-size:13px;
+    font-size:15px;
+    line-height:19px;
     color:var(--gray-text);
-    padding:3px 0;
-    font-weight:400;
+    padding:0;
+    font-weight:700;
     letter-spacing:0.01em;
     transition:color .15s ease;
   }
   nav.mainnav a:hover{color:var(--black);}
-  nav.mainnav a.active{color:var(--black);font-weight:500;}
+  nav.mainnav a.active{color:var(--black);font-weight:700;}
 
   /* ---------- Sidebar accordion (sub-categories) ---------- */
   .nav-item{display:flex;flex-direction:column;}
@@ -70,21 +74,24 @@
     overflow:hidden;
     display:flex;
     flex-direction:column;
-    margin:2px 0 0 8px;
+    margin:0 0 0 10px;
     padding-left:12px;
-    border-left:1px solid #ececec;
+    border-left:1px solid #e5e5e5;
     transition:max-height .3s ease;
   }
-  .nav-item.open .subnav{max-height:400px;}
-  .subnav-link{
-    font-size:11.5px;
+  .nav-item.open .subnav{max-height:400px;margin-bottom:4px;}
+  /* specificity must beat `nav.mainnav a`, which these links sit inside */
+  nav.mainnav .subnav-link{
+    font-size:13px;
+    line-height:17px;
     color:var(--gray-light);
-    padding:3px 0;
+    font-weight:400;
+    padding:1px 0;
     letter-spacing:0.01em;
     transition:color .15s ease;
   }
-  .subnav-link:hover{color:var(--black);}
-  .subnav-link.active{color:var(--black);font-weight:500;}
+  nav.mainnav .subnav-link:hover{color:var(--black);}
+  nav.mainnav .subnav-link.active{color:var(--black);font-weight:700;}
 
   .category-block{margin-top:26px;}
   .category-block .cat-title{
@@ -253,35 +260,37 @@
   /* Sub-category block (grouped thumbnail archive, erwinwurm.com-style) */
   .subcat{
     max-width:1100px;
-    margin-bottom:56px;
+    margin-bottom:55px;
   }
   .subcat-title{
     font-size:15px;
+    line-height:19px;
     font-weight:700;
-    margin:0 0 16px 0;
+    margin:0 0 10px 0;
     color:var(--black);
   }
   .subcat-title .subcat-year{
     font-weight:700;
-    color:#999999;
+    color:var(--gray-text);
   }
+  /* fixed height + auto width keeps every thumbnail's true aspect ratio
+     (the reference site never crops); they flow and wrap in rows */
   .thumb-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
-    gap:4px;
-    margin-bottom:18px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:var(--thumb-gap);
+    margin-bottom:0;
   }
   .thumb-grid img{
-    width:100%;
-    height:140px;
-    object-fit:cover;
-    cursor:zoom-in;
+    height:var(--thumb-h);
+    width:auto;
+    max-width:100%;
+    object-fit:contain;
+    cursor:pointer;
     background:#f2f2f2;
     transition:opacity .2s ease;
   }
   .thumb-grid img:hover{opacity:0.8;}
-  .subcat .work-desc{margin-top:0;margin-bottom:8px;}
-  .subcat .work-desc + .work-desc{margin-top:10px;}
 
   .video-wrap{
     display:grid;
@@ -305,14 +314,17 @@
     background:rgba(255,255,255,.97);
     z-index:100;
     align-items:center;
-    justify-content:center;
+    justify-content:flex-start;
     flex-direction:column;
+    overflow-y:auto;          /* notes can run long -- let the panel scroll */
+    padding:56px 0 48px;
   }
   #lightbox.open{display:flex;}
   #lightbox img{
     max-width:88vw;
-    max-height:78vh;
+    max-height:70vh;
     object-fit:contain;
+    flex-shrink:0;
   }
   #lightbox .lb-close{
     position:absolute;top:24px;right:32px;
@@ -325,8 +337,8 @@
   }
   #lightbox .lb-close:hover{color:var(--black);}
   #lightbox .lb-nav{
-    position:absolute;top:80px;bottom:60px;
-    width:15%;
+    position:fixed;top:0;bottom:0;
+    width:12%;
     display:flex;align-items:center;
     background:transparent;border:none;
     cursor:pointer;
@@ -338,31 +350,46 @@
   #lightbox .lb-prev{left:0;justify-content:flex-start;padding-left:18px;}
   #lightbox .lb-next{right:0;justify-content:flex-end;padding-right:18px;}
   #lightbox .lb-count{
-    font-size:12px;color:var(--gray-text);
-    margin-top:14px;
+    font-size:13px;line-height:19px;color:var(--gray-text);
+    margin-top:12px;
+    max-width:640px;width:100%;padding:0 24px;
+    text-align:left;
   }
   #lightbox .lb-caption{
-    margin-top:6px;
-    text-align:center;
+    margin-top:10px;
+    text-align:left;
     max-width:640px;
+    width:100%;
     padding:0 24px;
+    font-size:13px;
+    line-height:19px;
   }
   #lightbox .lb-caption .lb-title{
     font-size:13px;
+    line-height:19px;
     font-weight:400;
+    font-style:italic;
     color:var(--black);
-    margin-bottom:4px;
   }
   #lightbox .lb-caption .lb-meta{
     font-size:13px;
+    line-height:19px;
     color:var(--black);
   }
   #lightbox .lb-caption .lb-photo-caption{
     font-size:13px;
+    line-height:19px;
     color:var(--gray-text);
-    font-style:italic;
-    margin-top:8px;
   }
+  /* long-form text from the slide this photo came from */
+  #lightbox .lb-caption .lb-note{
+    font-size:13px;
+    line-height:19px;
+    color:var(--black);
+    white-space:pre-line;
+    margin-top:12px;
+  }
+  #lightbox .lb-caption .lb-note svg{max-width:100%;height:auto;}
 
   /* nav divider (whitespace only, no line — per design system) */
   .nav-divider{ height:22px; }
@@ -449,8 +476,7 @@
     .home-grid{grid-template-columns:1fr 1fr;}
     .work-gallery{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));}
     .work-gallery img{height:170px;}
-    .thumb-grid{grid-template-columns:repeat(auto-fill,minmax(90px,1fr));}
-    .thumb-grid img{height:100px;}
+    :root{--thumb-h:95px;--thumb-gap:8px;}
   }
 </style>
 </head>
@@ -501,6 +527,7 @@
     <div class="lb-title" id="lb-title"></div>
     <div class="lb-meta" id="lb-meta"></div>
     <div class="lb-photo-caption" id="lb-photo-caption"></div>
+    <div class="lb-note" id="lb-note"></div>
   </div>
   <div class="lb-count" id="lb-count"></div>
 </div>
@@ -538,6 +565,8 @@ window.SITE_DATA_READY = (async function(){
 <script>
 (async function(){
   await window.SITE_DATA_READY;
+  // must match --thumb-h in the stylesheet
+  const THUMB_H = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--thumb-h'), 10) || 125;
   function escapeAttr(str){
     return String(str)
       .replace(/&/g, '&amp;')
@@ -621,8 +650,17 @@ window.SITE_DATA_READY = (async function(){
         const metaAttr = escapeAttr(w.meta || '');
         return w.images.map(img => {
           const captionAttr = escapeAttr(img.caption || '');
+          const noteAttr = escapeAttr(img.note || '');
           const idx = imgN++;
-          return `<img src="${img.image}" alt="${w.title}" loading="lazy" data-gallery="${galleryId}" data-idx="${idx}" data-title="${titleAttr}" data-meta="${metaAttr}" data-photo-caption="${captionAttr}">`;
+          // Thumbs render at a fixed height with auto width. A lazy <img> with
+          // no intrinsic size would collapse to 0 width and never load, so emit
+          // width/height whenever the build recorded them; otherwise load eagerly
+          // and let the image size itself.
+          let sizeAttrs = 'loading="lazy"';
+          if (img.w && img.h){
+            sizeAttrs = `width="${Math.max(1, Math.round(THUMB_H * img.w / img.h))}" height="${THUMB_H}" loading="lazy"`;
+          }
+          return `<img src="${img.image}" alt="${w.title}" ${sizeAttrs} data-gallery="${galleryId}" data-idx="${idx}" data-title="${titleAttr}" data-meta="${metaAttr}" data-photo-caption="${captionAttr}" data-note="${noteAttr}">`;
         }).join('');
       }).join('');
 
@@ -636,7 +674,8 @@ window.SITE_DATA_READY = (async function(){
       });
       if (videoHtml) videoHtml = `<div class="video-wrap">${videoHtml}</div>`;
 
-      const descHtml = bucket.items.filter(w => w.desc).map(w => `<div class="work-desc">${w.desc}</div>`).join('');
+      // all prose lives in the lightbox now (per photo), so the page itself
+      // is a pure thumbnail archive like the reference site
       const yearMatch = bucket.key.match(/^(.*?)\s*(\(\d{4}\))\s*$/);
       const headerLabel = yearMatch
         ? `${yearMatch[1]} <span class="subcat-year">${yearMatch[2]}</span>`
@@ -648,7 +687,6 @@ window.SITE_DATA_READY = (async function(){
           ${headerHtml}
           ${videoHtml}
           <div class="thumb-grid" data-gallery="${galleryId}">${thumbsHtml}</div>
-          ${descHtml}
         </div>`;
     });
 
@@ -819,18 +857,21 @@ window.SITE_DATA_READY = (async function(){
   const lbTitle = document.getElementById('lb-title');
   const lbMeta = document.getElementById('lb-meta');
   const lbPhotoCaption = document.getElementById('lb-photo-caption');
+  const lbNote = document.getElementById('lb-note');
   let currentGallery = [];
   let currentCaptions = [];
+  let currentNotes = [];
   let currentTitles = [];
   let currentMetas = [];
   let currentIdx = 0;
 
   function openLightbox(galleryId, idx){
     // a gallery is now a whole sub-category grid and can span several works,
-    // so title/meta/caption are tracked per-image, not once for the gallery
+    // so title/meta/caption/note are tracked per-image, not once for the gallery
     const imgs = Array.from(document.querySelectorAll(`img[data-gallery="${galleryId}"]`));
     currentGallery = imgs.map(img => img.src);
     currentCaptions = imgs.map(img => img.dataset.photoCaption || '');
+    currentNotes = imgs.map(img => img.dataset.note || '');
     currentTitles = imgs.map(img => img.dataset.title || '');
     currentMetas = imgs.map(img => img.dataset.meta || '');
     currentIdx = idx;
@@ -844,6 +885,11 @@ window.SITE_DATA_READY = (async function(){
     lbMeta.textContent = currentMetas[currentIdx] || '';
     lbPhotoCaption.textContent = currentCaptions[currentIdx] || '';
     lbPhotoCaption.style.display = currentCaptions[currentIdx] ? '' : 'none';
+    const note = currentNotes[currentIdx] || '';
+    // notes may carry hand-authored inline SVG (e.g. 웅이's scattered title)
+    lbNote.innerHTML = note;
+    lbNote.style.display = note ? '' : 'none';
+    lightbox.scrollTop = 0;
   }
   function closeLightbox(){ lightbox.classList.remove('open'); }
   function nextImg(){ currentIdx = (currentIdx+1) % currentGallery.length; renderLightbox(); }
