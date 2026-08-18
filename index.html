@@ -14,7 +14,9 @@
     --gray-light:#999999;
     --black:#000000;
     --bg:#ffffff;
-    --sidebar-w:300px;   /* wider than before: menu text is now 21px */
+    --sidebar-w:300px;   /* reference content column starts at x=300 */
+    --edge-x:20px;       /* reference left/top page edge */
+    --edge-y:22px;
     --gap:28px;
     --thumb-h:125px;   /* reference uses fixed-height, aspect-preserved thumbs */
     --thumb-gap:10px;
@@ -30,12 +32,14 @@
   a{text-decoration:none;color:inherit;}
   img{max-width:100%;display:block;}
 
-  /* ---------- Sidebar ---------- */
+  /* ---------- Sidebar ----------
+     Reference puts its brand at x=20,y=22 and starts the content column at
+     x=300, so the sidebar edge padding matches those numbers exactly. */
   #sidebar{
     position:fixed;
     top:0;left:0;bottom:0;
     width:var(--sidebar-w);
-    padding:48px 0 24px 40px;
+    padding:var(--edge-y) 16px var(--edge-y) var(--edge-x);
     overflow-y:auto;
     background:var(--bg);
     z-index:20;
@@ -43,15 +47,17 @@
   #sidebar::-webkit-scrollbar{width:0;}
   .brand{
     font-size:21px;
+    line-height:25px;
     font-weight:700;
     letter-spacing:0.02em;
-    margin-bottom:4px;
+    margin-bottom:0;
   }
   .brand-en{
     font-size:11px;
+    line-height:14px;
     color:var(--gray-light);
     letter-spacing:0.06em;
-    margin-bottom:44px;
+    margin-bottom:16px;
     display:block;
   }
   /* Reference top-level menu is 21px/24px, but that ratio is tuned for
@@ -145,23 +151,28 @@
   #main{
     margin-left:var(--sidebar-w);
     min-height:100vh;
-    padding:56px 56px 120px 56px;
+    /* content column begins flush at x = sidebar width, top-aligned with the
+       brand, exactly as on the reference */
+    padding:var(--edge-y) var(--edge-x) 120px 0;
   }
   .page{display:none;}
   .page.active{display:block;}
 
   /* Home */
   #page-home .home-title{
-    font-size:26px;
-    font-weight:400;
+    font-size:21px;
+    line-height:25px;
+    font-weight:700;
     letter-spacing:0.01em;
-    margin:0 0 6px 0;
+    margin:0;
   }
   #page-home .home-title-en{
-    font-size:13px;
+    font-size:15px;
+    line-height:19px;
+    font-weight:700;
     color:var(--gray-text);
-    letter-spacing:0.08em;
-    margin:0 0 60px 0;
+    letter-spacing:0.01em;
+    margin:0 0 30px 0;
     display:block;
   }
   .home-grid{
@@ -199,17 +210,20 @@
   }
 
   /* Category page header */
-  .cat-header{margin-bottom:56px;max-width:640px;}
+  .cat-header{margin-bottom:30px;max-width:640px;}
   .cat-header h1{
-    font-size:24px;
-    font-weight:400;
-    margin:0 0 4px 0;
+    font-size:21px;
+    line-height:25px;
+    font-weight:700;
+    margin:0;
     letter-spacing:0.01em;
   }
   .cat-header .en{
-    font-size:12px;
+    font-size:15px;
+    line-height:19px;
+    font-weight:700;
     color:var(--gray-text);
-    letter-spacing:0.08em;
+    letter-spacing:0.01em;
   }
 
   /* Work block */
@@ -460,7 +474,6 @@
   /* ---------- Responsive ---------- */
   @media (max-width:860px){
     :root{--sidebar-w:250px;}
-    #main{padding:56px 28px 100px 28px;}
     .home-grid{grid-template-columns:1fr 1fr;}
   }
 
@@ -478,7 +491,7 @@
       transform:translateX(0);
       box-shadow:2px 0 24px rgba(0,0,0,.08);
     }
-    #main{margin-left:0;padding:90px 20px 80px 20px;}
+    #main{margin-left:0;padding:66px var(--edge-x) 80px var(--edge-x);}
     .home-grid{grid-template-columns:1fr 1fr;}
     .work-gallery{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));}
     .work-gallery img{height:170px;}
