@@ -22,20 +22,106 @@
 <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 <script>
   // The right-hand "미리보기" panel renders inside its own iframe, so the
-  // <style> above (scoped to #nc-root) never reaches it. registerPreviewStyle
-  // injects CSS into that iframe's document instead.
+  // <style> in <head> (scoped to #nc-root) never reaches it. registerPreviewStyle
+  // injects CSS into that iframe's document instead. Kept as a general safety
+  // cap on top of the inline styles the templates below already set.
   if (window.CMS && window.CMS.registerPreviewStyle) {
     window.CMS.registerPreviewStyle(`
-      img {
-        max-height: 260px !important;
-        max-width: 100% !important;
-        width: auto !important;
-        height: auto !important;
-        object-fit: contain;
-        display: block;
-        margin-bottom: 8px;
-      }
+      body { font-family: -apple-system, 'Malgun Gothic', sans-serif; }
+      img { max-height: 260px !important; object-fit: contain; }
     `, { raw: true });
+  }
+
+  // Custom preview templates: render each file collection close to how it
+  // actually looks on the live site (thumbnails + captions, not a raw
+  // "field: value" dump), and re-render on every keystroke like any Decap
+  // preview does.
+  if (window.CMS && window.createClass && window.h) {
+
+    var SiteDataPreview = createClass({
+      render: function () {
+        var getAsset = this.props.getAsset;
+        var categories = this.props.entry.getIn(['data', 'categories']) || [];
+        return h('div', { style: { padding: '20px', maxWidth: '900px' } },
+          categories.map(function (cat, ci) {
+            var works = cat.get('works') || [];
+            return h('div', { key: ci, style: { marginBottom: '48px' } },
+              h('h1', { style: { fontSize: '20px', fontWeight: 700, margin: '0 0 2px' } }, cat.get('title')),
+              h('div', { style: { fontSize: '13px', fontWeight: 700, color: '#999', marginBottom: '20px' } }, cat.get('subtitle')),
+              works.map(function (w, wi) {
+                var images = w.get('images') || [];
+                return h('div', { key: wi, style: { marginBottom: '28px', paddingBottom: '20px', borderBottom: '1px solid #eee' } },
+                  w.get('subcategory') ? h('div', { style: { fontSize: '12px', color: '#1a63d8', marginBottom: '3px' } }, w.get('subcategory')) : null,
+                  h('div', { style: { fontSize: '15px', fontWeight: 700, marginBottom: '3px' } }, w.get('title')),
+                  h('div', { style: { fontSize: '12px', color: '#777', marginBottom: '10px' } }, w.get('meta')),
+                  h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '6px' } },
+                    images.map(function (img, ii) {
+                      var src = img.get('image');
+                      return h('div', { key: ii, style: { width: '110px' } },
+                        h('img', {
+                          src: src ? getAsset(src).toString() : '',
+                          loading: 'lazy',
+                          style: { width: '100%', height: '90px', objectFit: 'cover', background: '#f0f0f0', display: 'block' }
+                        }),
+                        img.get('caption')
+                          ? h('div', { style: { fontSize: '10px', fontStyle: 'italic', color: '#999', marginTop: '3px' } }, img.get('caption'))
+                          : null
+                      );
+                    })
+                  )
+                );
+              })
+            );
+          })
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('sitedata', SiteDataPreview);
+
+    var TextDataPreview = createClass({
+      render: function () {
+        var articles = this.props.entry.getIn(['data', 'articles']) || [];
+        return h('div', { style: { padding: '20px', maxWidth: '640px' } },
+          articles.map(function (a, i) {
+            return h('div', { key: i, style: { marginBottom: '40px' } },
+              h('div', { style: { fontSize: '16px', fontWeight: 700, marginBottom: '4px' } }, a.get('title')),
+              h('div', { style: { fontSize: '12px', color: '#999', marginBottom: '14px' } }, a.get('author')),
+              h('div', { style: { fontSize: '13px', lineHeight: '1.9', color: '#333', whiteSpace: 'pre-line' } }, a.get('body'))
+            );
+          })
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('textdata', TextDataPreview);
+
+    var CvDataPreview = createClass({
+      render: function () {
+        var entries = this.props.entry.getIn(['data', 'entries']) || [];
+        return h('div', { style: { padding: '20px', maxWidth: '500px' } },
+          entries.map(function (e, i) {
+            return h('div', { key: i, style: { display: 'flex', gap: '16px', padding: '10px 0', borderBottom: '1px solid #eee', fontSize: '13px' } },
+              h('div', { style: { flex: '0 0 50px', color: '#999' } }, e.get('year')),
+              h('div', {},
+                h('div', {}, e.get('title')),
+                h('div', { style: { fontSize: '11px', color: '#999' } }, [e.get('place'), e.get('city')].filter(Boolean).join(', '))
+              )
+            );
+          })
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('cvdata', CvDataPreview);
+
+    var ContactDataPreview = createClass({
+      render: function () {
+        var data = this.props.entry.get('data');
+        return h('div', { style: { padding: '20px', fontSize: '14px', lineHeight: '2' } },
+          h('div', {}, 'Email: ' + (data.get('email') || '(비어있음)')),
+          h('div', {}, 'Instagram: ' + (data.get('instagram') || '(비어있음)'))
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('contactdata', ContactDataPreview);
   }
 </script>
 </body>
