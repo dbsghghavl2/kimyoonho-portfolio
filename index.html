@@ -14,7 +14,7 @@
     --gray-light:#999999;
     --black:#000000;
     --bg:#ffffff;
-    --sidebar-w:240px;
+    --sidebar-w:300px;   /* wider than before: menu text is now 21px */
     --gap:28px;
     --thumb-h:125px;   /* reference uses fixed-height, aspect-preserved thumbs */
     --thumb-gap:10px;
@@ -54,10 +54,11 @@
     margin-bottom:44px;
     display:block;
   }
+  /* reference top-level menu: 21px/700, line-height 24px */
   nav.mainnav{display:flex;flex-direction:column;}
   nav.mainnav a{
-    font-size:15px;
-    line-height:19px;
+    font-size:21px;
+    line-height:24px;
     color:var(--gray-text);
     padding:0;
     font-weight:700;
@@ -80,12 +81,13 @@
     transition:max-height .3s ease;
   }
   .nav-item.open .subnav{max-height:400px;margin-bottom:4px;}
-  /* specificity must beat `nav.mainnav a`, which these links sit inside */
+  /* reference second-level menu: 15px/700, line-height 19px.
+     Specificity must beat `nav.mainnav a`, which these links sit inside. */
   nav.mainnav .subnav-link{
-    font-size:13px;
-    line-height:17px;
+    font-size:15px;
+    line-height:19px;
     color:var(--gray-light);
-    font-weight:400;
+    font-weight:700;
     padding:1px 0;
     letter-spacing:0.01em;
     transition:color .15s ease;
@@ -453,7 +455,7 @@
 
   /* ---------- Responsive ---------- */
   @media (max-width:860px){
-    :root{--sidebar-w:220px;}
+    :root{--sidebar-w:250px;}
     #main{padding:56px 28px 100px 28px;}
     .home-grid{grid-template-columns:1fr 1fr;}
   }
