@@ -20,5 +20,23 @@
 <body>
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+<script>
+  // The right-hand "미리보기" panel renders inside its own iframe, so the
+  // <style> above (scoped to #nc-root) never reaches it. registerPreviewStyle
+  // injects CSS into that iframe's document instead.
+  if (window.CMS && window.CMS.registerPreviewStyle) {
+    window.CMS.registerPreviewStyle(`
+      img {
+        max-height: 260px !important;
+        max-width: 100% !important;
+        width: auto !important;
+        height: auto !important;
+        object-fit: contain;
+        display: block;
+        margin-bottom: 8px;
+      }
+    `, { raw: true });
+  }
+</script>
 </body>
 </html>
