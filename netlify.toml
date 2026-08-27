@@ -4,4 +4,9 @@
 [[headers]]
   for = "/content/*.json"
   [headers.values]
-    Cache-Control = "no-cache"
+    # "no-cache" still permits a CDN to serve a stale hit without
+    # revalidating (which is exactly what was happening -- Netlify's edge
+    # cached content/site-data.json for ~1 year and kept serving a deleted
+    # photo). no-store forbids caching outright, so admin saves show up on
+    # the very next page load instead of waiting out that TTL.
+    Cache-Control = "no-store, must-revalidate"
