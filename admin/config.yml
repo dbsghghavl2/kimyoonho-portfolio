@@ -11,7 +11,7 @@ collections:
   - name: "site"
     label: "포트폴리오 사이트"
     files:
-      - file: "content/site-data.json"
+      - file: "content/v2/site-data.json"
         label: "카테고리 & 작품"
         name: "sitedata"
         fields:
@@ -45,7 +45,7 @@ collections:
                     required: false
                     field: { label: "YouTube 영상 ID (URL 뒷부분, 예: 7KydUYZzJOE)", name: "id", widget: "string" }
 
-      - file: "content/text-data.json"
+      - file: "content/v2/text-data.json"
         label: "TEXT (비평글)"
         name: "textdata"
         fields:
@@ -58,13 +58,13 @@ collections:
               - { label: "저자", name: "author", widget: "string" }
               - { label: "본문", name: "body", widget: "text" }
 
-      - file: "content/cv-data.json"
+      - file: "content/v2/cv-data.json"
         label: "CV"
         name: "cvdata"
         fields:
           - { label: "이력 (자유 양식 — 원하는 대로 줄바꿈해서 쓰세요)", name: "text", widget: "text", required: false }
 
-      - file: "content/contact-data.json"
+      - file: "content/v2/contact-data.json"
         label: "CONTACT (연락처)"
         name: "contactdata"
         fields:

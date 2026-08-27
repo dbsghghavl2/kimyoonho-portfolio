@@ -554,10 +554,10 @@ async function loadJSON(path, fallback){
 
 window.SITE_DATA_READY = (async function(){
   const [siteRes, cvRes, textRes, contactRes] = await Promise.all([
-    loadJSON("content/site-data.json", { categories: [] }),
-    loadJSON("content/cv-data.json", { text: "" }),
-    loadJSON("content/text-data.json", { articles: [] }),
-    loadJSON("content/contact-data.json", { email: "", instagram: "" })
+    loadJSON("content/v2/site-data.json", { categories: [] }),
+    loadJSON("content/v2/cv-data.json", { text: "" }),
+    loadJSON("content/v2/text-data.json", { articles: [] }),
+    loadJSON("content/v2/contact-data.json", { email: "", instagram: "" })
   ]);
   SITE_DATA = siteRes.categories || [];
   CV_DATA = cvRes.text || "";
