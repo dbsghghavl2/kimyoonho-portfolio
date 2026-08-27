@@ -537,7 +537,13 @@ let CONTACT_DATA = { email: "", instagram: "" };
 
 async function loadJSON(path, fallback){
   try {
-    const res = await fetch(path, { cache: "no-store" });
+    // Netlify's edge CDN was observed caching these files for ~1 year and
+    // serving stale copies (a deleted admin photo kept showing) even with a
+    // Cache-Control: no-cache response header. A per-load query string makes
+    // every request a distinct URL, which no CDN or browser cache can treat
+    // as a hit -- so admin saves always show up immediately.
+    const bustedPath = path + (path.includes("?") ? "&" : "?") + "v=" + Date.now();
+    const res = await fetch(bustedPath, { cache: "no-store" });
     if (!res.ok) throw new Error(res.status);
     return await res.json();
   } catch (e) {
