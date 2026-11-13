@@ -56,7 +56,18 @@ collections:
             fields:
               - { label: "제목", name: "title", widget: "string" }
               - { label: "저자", name: "author", widget: "string" }
-              - { label: "본문", name: "body", widget: "text" }
+              - label: "본문"
+                name: "body"
+                widget: "text"
+                hint: "사진을 넣고 싶은 자리에 [사진1], [사진2] 처럼 적으세요. 번호는 아래 '본문 사진' 목록의 순서입니다. 번호를 안 적은 사진은 글 맨 끝에 붙습니다."
+              - label: "본문 사진"
+                name: "images"
+                widget: "list"
+                required: false
+                summary: "{{fields.caption}} {{fields.image}}"
+                fields:
+                  - { label: "이미지", name: "image", widget: "image" }
+                  - { label: "사진 설명 (선택 — 사진 아래 작게 표시)", name: "caption", widget: "string", required: false }
 
       - file: "content/cv-data.json"
         label: "CV"

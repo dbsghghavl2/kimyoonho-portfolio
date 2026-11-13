@@ -423,8 +423,12 @@
     margin-bottom:64px;
   }
   .text-title{ font-size:18px; font-weight:500; margin:0 0 6px 0; }
-  .text-author{ font-size:12px; color:var(--gray-text); margin-bottom:20px; }
+  /* between body (14px) and title (18px); weight follows .text-title */
+  .text-author{ font-size:16px; font-weight:500; color:var(--black); text-align:right; margin-bottom:20px; }
   .text-body{ font-size:14px; line-height:2; white-space:pre-line; color:#333; }
+  .text-figure{ margin:24px 0; }
+  .text-figure img{ width:auto; max-width:100%; max-height:80vh; height:auto; }
+  .text-figure figcaption{ font-size:12px; line-height:1.6; color:var(--gray-text); margin-top:8px; }
 
   /* CONTACT */
   .contact-list{ max-width:480px; }
@@ -740,15 +744,37 @@ window.SITE_DATA_READY = (async function(){
     link.href = '#'; link.dataset.page = 'text'; link.innerHTML = 'TEXT';
     nav.appendChild(link);
 
+    // "[사진2]" in the body places the article's 2nd image there; images no
+    // marker refers to are appended after the text so an upload never vanishes
+    function articleBodyHtml(t){
+      const imgs = t.images || [];
+      const used = new Set();
+      const figure = i => {
+        const im = imgs[i];
+        if (!im || !im.image) return '';
+        used.add(i);
+        return `<figure class="text-figure"><img src="${escapeAttr(im.image)}" alt="" loading="lazy">${
+          im.caption ? `<figcaption>${escapeAttr(im.caption)}</figcaption>` : ''}</figure>`;
+      };
+      let html = '';
+      String(t.body || '').split(/\[사진\s*(\d+)\]/).forEach((part, i) => {
+        if (i % 2) { html += figure(parseInt(part, 10) - 1); return; }
+        const text = part.replace(/^\n+|\n+$/g, '');
+        if (text) html += `<div class="text-body">${escapeAttr(text)}</div>`;
+      });
+      imgs.forEach((_, i) => { if (!used.has(i)) html += figure(i); });
+      return html;
+    }
+
     let bodyHtml;
     if (!TEXT_DATA.length){
       bodyHtml = `<div class="empty-note">공란</div>`;
     } else {
       bodyHtml = TEXT_DATA.map(t => `
         <div class="text-article">
-          <h2 class="text-title">${t.title || ''}</h2>
-          <div class="text-author">${t.author || ''}</div>
-          <div class="text-body">${t.body || ''}</div>
+          <h2 class="text-title">${escapeAttr(t.title || '')}</h2>
+          <div class="text-author">${escapeAttr(t.author || '')}</div>
+          ${articleBodyHtml(t)}
         </div>`).join('');
     }
     const page = document.createElement('section');

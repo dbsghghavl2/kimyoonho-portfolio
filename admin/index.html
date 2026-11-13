@@ -78,15 +78,40 @@
     });
     CMS.registerPreviewTemplate('sitedata', SiteDataPreview);
 
+    // mirrors articleBodyHtml() in the site's index.html: "[사진N]" in the
+    // body places image N there, unreferenced images go after the text
     var TextDataPreview = createClass({
       render: function () {
+        var getAsset = this.props.getAsset;
         var articles = this.props.entry.getIn(['data', 'articles']) || [];
         return h('div', { style: { padding: '20px', maxWidth: '640px' } },
           articles.map(function (a, i) {
+            var imgs = a.get('images') ? a.get('images').toArray() : [];
+            var used = {};
+            function fig(n, key) {
+              var im = imgs[n];
+              if (!im || !im.get('image')) return null;
+              used[n] = true;
+              return h('figure', { key: key, style: { margin: '20px 0' } },
+                h('img', { src: getAsset(im.get('image')).toString(), style: { maxWidth: '100%', display: 'block' } }),
+                im.get('caption')
+                  ? h('figcaption', { style: { fontSize: '11px', color: '#999', marginTop: '6px' } }, im.get('caption'))
+                  : null
+              );
+            }
+            var body = String(a.get('body') || '').split(/\[사진\s*(\d+)\]/).map(function (part, pi) {
+              if (pi % 2) return fig(parseInt(part, 10) - 1, 'f' + pi);
+              var text = part.replace(/^\n+|\n+$/g, '');
+              return text
+                ? h('div', { key: 't' + pi, style: { fontSize: '13px', lineHeight: '1.9', color: '#333', whiteSpace: 'pre-line' } }, text)
+                : null;
+            });
+            var rest = imgs.map(function (_, n) { return used[n] ? null : fig(n, 'r' + n); });
             return h('div', { key: i, style: { marginBottom: '40px' } },
-              h('div', { style: { fontSize: '16px', fontWeight: 700, marginBottom: '4px' } }, a.get('title')),
-              h('div', { style: { fontSize: '12px', color: '#999', marginBottom: '14px' } }, a.get('author')),
-              h('div', { style: { fontSize: '13px', lineHeight: '1.9', color: '#333', whiteSpace: 'pre-line' } }, a.get('body'))
+              h('div', { style: { fontSize: '16px', fontWeight: 500, marginBottom: '4px' } }, a.get('title')),
+              h('div', { style: { fontSize: '14px', fontWeight: 500, color: '#000', textAlign: 'right', marginBottom: '14px' } }, a.get('author')),
+              body,
+              rest
             );
           })
         );
