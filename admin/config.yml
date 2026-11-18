@@ -7,17 +7,21 @@ public_folder: "/images/uploads"
 
 locale: "ko"
 
+# Everything lives in one file on purpose: each Publish is one commit and one
+# Netlify deploy (15 credits), so the artist can edit every section and
+# publish once instead of once per section.
 collections:
   - name: "site"
     label: "포트폴리오 사이트"
     files:
-      - file: "content/site-data.json"
-        label: "카테고리 & 작품"
-        name: "sitedata"
+      - file: "content/site.json"
+        label: "사이트 전체 (모두 고친 뒤 게시 한 번)"
+        name: "all"
         fields:
-          - label: "카테고리 목록"
+          - label: "카테고리 & 작품"
             name: "categories"
             widget: "list"
+            minimize_collapsed: true
             summary: "{{fields.title}}"
             fields:
               - { label: "ID (영문, 절대 중복/공백 금지)", name: "id", widget: "string" }
@@ -45,13 +49,10 @@ collections:
                     required: false
                     field: { label: "YouTube 영상 ID (URL 뒷부분, 예: 7KydUYZzJOE)", name: "id", widget: "string" }
 
-      - file: "content/text-data.json"
-        label: "TEXT (비평글)"
-        name: "textdata"
-        fields:
-          - label: "글 목록"
+          - label: "TEXT (비평글)"
             name: "articles"
             widget: "list"
+            minimize_collapsed: true
             summary: "{{fields.title}}"
             fields:
               - { label: "제목", name: "title", widget: "string" }
@@ -68,16 +69,22 @@ collections:
                 fields:
                   - { label: "이미지", name: "image", widget: "image" }
                   - { label: "사진 설명 (선택 — 사진 아래 작게 표시)", name: "caption", widget: "string", required: false }
+                  - label: "정렬"
+                    name: "align"
+                    widget: "select"
+                    required: false
+                    default: "center"
+                    options:
+                      - { label: "가운데", value: "center" }
+                      - { label: "왼쪽", value: "left" }
+                      - { label: "오른쪽", value: "right" }
 
-      - file: "content/cv-data.json"
-        label: "CV"
-        name: "cvdata"
-        fields:
-          - { label: "이력 (자유 양식 — 원하는 대로 줄바꿈해서 쓰세요)", name: "text", widget: "text", required: false }
+          - { label: "CV — 이력 (자유 양식, 원하는 대로 줄바꿈해서 쓰세요)", name: "cv", widget: "text", required: false }
 
-      - file: "content/contact-data.json"
-        label: "CONTACT (연락처)"
-        name: "contactdata"
-        fields:
-          - { label: "이메일", name: "email", widget: "string", required: false }
-          - { label: "인스타그램 (@ 제외)", name: "instagram", widget: "string", required: false }
+          - label: "CONTACT (연락처)"
+            name: "contact"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "이메일", name: "email", widget: "string", required: false }
+              - { label: "인스타그램 (@ 제외)", name: "instagram", widget: "string", required: false }

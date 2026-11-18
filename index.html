@@ -426,8 +426,12 @@
   /* between body (14px) and title (18px); weight follows .text-title */
   .text-author{ font-size:16px; font-weight:500; color:var(--black); text-align:right; margin-bottom:20px; }
   .text-body{ font-size:14px; line-height:2; white-space:pre-line; color:#333; }
-  .text-figure{ margin:24px 0; }
-  .text-figure img{ width:auto; max-width:100%; max-height:80vh; height:auto; }
+  .text-figure{ margin:24px 0; text-align:center; }
+  .text-figure img{ width:auto; max-width:100%; max-height:80vh; height:auto; margin:0 auto; }
+  .text-figure.align-left{ text-align:left; }
+  .text-figure.align-left img{ margin:0 auto 0 0; }
+  .text-figure.align-right{ text-align:right; }
+  .text-figure.align-right img{ margin:0 0 0 auto; }
   .text-figure figcaption{ font-size:12px; line-height:1.6; color:var(--gray-text); margin-top:8px; }
 
   /* CONTACT */
@@ -558,16 +562,11 @@ async function loadJSON(path, fallback){
 }
 
 window.SITE_DATA_READY = (async function(){
-  const [siteRes, cvRes, textRes, contactRes] = await Promise.all([
-    loadJSON("content/site-data.json", { categories: [] }),
-    loadJSON("content/cv-data.json", { text: "" }),
-    loadJSON("content/text-data.json", { articles: [] }),
-    loadJSON("content/contact-data.json", { email: "", instagram: "" })
-  ]);
-  SITE_DATA = siteRes.categories || [];
-  CV_DATA = cvRes.text || "";
-  TEXT_DATA = textRes.articles || [];
-  CONTACT_DATA = contactRes || { email: "", instagram: "" };
+  const data = await loadJSON("content/site.json", {});
+  SITE_DATA = data.categories || [];
+  CV_DATA = data.cv || "";
+  TEXT_DATA = data.articles || [];
+  CONTACT_DATA = data.contact || { email: "", instagram: "" };
 })();
 </script>
 <script>
@@ -753,7 +752,8 @@ window.SITE_DATA_READY = (async function(){
         const im = imgs[i];
         if (!im || !im.image) return '';
         used.add(i);
-        return `<figure class="text-figure"><img src="${escapeAttr(im.image)}" alt="" loading="lazy">${
+        const align = ['left', 'right'].includes(im.align) ? im.align : 'center';
+        return `<figure class="text-figure align-${align}"><img src="${escapeAttr(im.image)}" alt="" loading="lazy">${
           im.caption ? `<figcaption>${escapeAttr(im.caption)}</figcaption>` : ''}</figure>`;
       };
       let html = '';
